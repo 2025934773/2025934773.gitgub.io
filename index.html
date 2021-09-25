@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicivghyooj20zk0m8dir.jpg"></li>
         </ul>
       </div>
     </header>
@@ -121,7 +121,60 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" itemprop="url" title="标准64位程序ROP流程和堆栈平衡"><img data-src="https://tva3.sinaimg.cn/mw690/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></a>
+    <a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" itemprop="url" title="电科新生赛"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclip4jbpj20zk0m87cv.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-25 12:43:11">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-25T12:43:11+08:00">2021-09-25</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>759</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" itemprop="url" title="电科新生赛">电科新生赛</a></h3>
+    <div class="excerpt">
+        昨天朋友告诉我电科新生赛开始了，本着摸鱼的心态去做了做，都是很基础的题，最后拿到了单项 pwn 第五名的成绩，还是甚是欣慰，可惜有一道游戏题没有做出来。那就分享一道我觉得比较有意思的题。
+老规矩 checksec 一下
+
+基本啥保护也没开.
+# 代码审计
+
+观察主函数，只要满足 master 和 AtHome 字符串相等就能拿到 flag。因此我们的目的就是给 master 字符串赋值为 AtHome。
+程序中有一处 ring 函数，点进去看看
+
+发现是读入一个 long long 型的无符号数，再查看 bell 储存的 bss 段
+
+思路很清晰了，只能对 bell 段进行读写，但是 bell...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
+      </span>
+    </div>
+    <a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" itemprop="url" title="电科新生赛" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" itemprop="url" title="标准64位程序ROP流程和堆栈平衡"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></a>
   </div>
   <div class="info">
     
@@ -174,7 +227,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" title="LibcSearcher环境配置和ubuntu更新换源问题"><img data-src="https://tva3.sinaimg.cn/mw690/6833939bly1gicm07ih54j20zk0m84qp.jpg"></a>
+    <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" title="LibcSearcher环境配置和ubuntu更新换源问题"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicm0n457cj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -223,7 +276,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/03/babyrop/" itemprop="url" title="标准32位程序ROP流程和c语言转义字符"><img data-src="https://tva3.sinaimg.cn/mw690/6833939bly1gicit31ffoj20zk0m8naf.jpg"></a>
+    <a href="/2021/09/03/babyrop/" itemprop="url" title="标准32位程序ROP流程和c语言转义字符"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -274,7 +327,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解"><img data-src="https://tva3.sinaimg.cn/mw690/6833939bly1giclhnx9glj20zk0m8npd.jpg"></a>
+    <a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipevarprfj20zk0m8npd.jpg"></a>
   </div>
   <div class="info">
     
@@ -322,7 +375,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" itemprop="url" title="版权声明"><img data-src="https://tva3.sinaimg.cn/mw690/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></a>
+    <a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" itemprop="url" title="版权声明"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -396,7 +449,7 @@
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">5</span>
+        <span class="count">6</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -486,7 +539,7 @@
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
+    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
   </li>
 
       
@@ -497,6 +550,16 @@
 </div>
 
     <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
   </li>
 
       
@@ -516,7 +579,7 @@
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
   </li>
 
       
