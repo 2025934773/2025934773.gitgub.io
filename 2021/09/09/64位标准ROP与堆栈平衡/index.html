@@ -117,12 +117,12 @@ Nirvana = 清風微醺 = 凌恒</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4baakhj20zk0m8h5q.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicit31ffoj20zk0m8naf.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclize41wj20zk0m87gk.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclh3brzpj20zk0m8ann.jpg"></li>
         </ul>
       </div>
     </header>
@@ -171,13 +171,13 @@ Nirvana = 清風微醺 = 凌恒</title>
     <p>一道积攒了很久才解出来的题，这道题大体不难，但是好多小细节呜呜呜。而且 Libcsearcher 里的 libc 库没更新（上篇博客讲了）。</p>
 <p>这道题是 BUUCTF 上的 ciscn_2019_c_1。标准的 64 位 ROP 流程，我也就分享一下自己的坎坷心路历程。</p>
 <h1 id="代码审计"><a class="markdownIt-Anchor" href="#代码审计">#</a> 代码审计</h1>
-<img data-src="\images\64位标准ROP与堆栈平衡\4.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax3.sinaimg.cn/large/008qDYGVgy1gwextbm911j30gy03f0ud.jpg" alt="4"></p>
 <p>老规矩 checksec 一下，只开了 nx 保护。</p>
 <p>观察 main 函数</p>
 <p><img data-src="https://tva3.sinaimg.cn/large/008qDYGVgy1gwexpa8yqsj314h0i1gt1.jpg" alt="1"></p>
 <p>显然哦，只有输入 1 才有点用。</p>
 <h2 id="关键函数encrypt"><a class="markdownIt-Anchor" href="#关键函数encrypt">#</a> 关键函数:encrypt ()</h2>
-<img data-src="\images\64位标准ROP与堆栈平衡\2.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax3.sinaimg.cn/large/008qDYGVgy1gwexslmmz7j30kz0hf42j.jpg" alt="2"></p>
 <p>发现一个栈溢出漏洞。ROP 链的入口。</p>
 <p>然后就是读取 s 的长度，在长度范围内对内容进行加密：也就是根据 ascii 码范围不同来进行异或操作。</p>
 <p>这个解密函数会把读入的 s 给加密，把你的内容替换掉。</p>
@@ -187,7 +187,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>实用工具：ROPgadgets</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary 文件名 </span><br></pre></td></tr></table></figure>
 <p>即可查看程序本身的 gadget。这里只会用到第一个寄存器 rdi，因此去找 pop rdi 的指令即可。</p>
-<img data-src="\images\64位标准ROP与堆栈平衡\5.png" style="zoom:67%;"/>
+<p><img data-src="https://tva4.sinaimg.cn/large/008qDYGVgy1gwexu4tsl6j30k90c2qcm.jpg" alt="5"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pop_rdi_addr = 0x400c83</span><br></pre></td></tr></table></figure>
 <p>然后通过  p64 (pop_rdi_addr)+p64 (参数值)+p64 (函数地址)  即可调用函数</p>
 <h2 id="2绕过加密函数防止输入内容被篡改"><a class="markdownIt-Anchor" href="#2绕过加密函数防止输入内容被篡改">#</a> 2. 绕过加密函数，防止输入内容被篡改：</h2>
@@ -212,7 +212,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>出现在 exp 里第一个# #夹着的地方。</p>
 <p>观察 encrypt（）函数应该是在 ROP 后先输出 Ciphertext 后就会返回，而返回地址已被我们劫持成 puts（）来打印出 puts 真实地址。因此我们的 puts 真实函数地址应该在 r.recvuntil (b&quot;Ciphertext\n&quot;) 后就可以收到。但是我通过这样接收到的 puts 地址，Libcsearcher 找到了几百个 libc，明显说明地址错误。</p>
 <p>后来才发现：</p>
-<img data-src="\images\64位标准ROP与堆栈平衡\3.png" style="zoom:67%;"/>
+<p><img data-src="https://tva3.sinaimg.cn/large/008qDYGVgy1gwexsysktcj30bp07wdhn.jpg" alt="3"></p>
 <p>encrypt () 函数在返回之前还调用了一次 puts () 函数来打印加密后的 s，然后才 retn。因此我们需要再接受一行，接下来收到的才是 puts（）的真实地址。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r.recvuntil(<span class="string">b&quot;Ciphertext\n&quot;</span>)</span><br><span class="line">r.recvuntil(<span class="string">b&quot;\n&quot;</span>)</span><br><span class="line">puts_addr = u64(r.recvline()[:-<span class="number">1</span>].ljust(<span class="number">8</span>,<span class="string">b&#x27;\0&#x27;</span>))</span><br></pre></td></tr></table></figure>
 <h3 id="2依然got-eof"><a class="markdownIt-Anchor" href="#2依然got-eof">#</a> 2. 依然 GOT EOF</h3>
@@ -239,7 +239,7 @@ Nirvana = 清風微醺 = 凌恒</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-11-14 20:08:49" itemprop="dateModified" datetime="2021-11-14T20:08:49+08:00">2021-11-14</time>
+    <time title="修改时间：2021-11-14 20:12:02" itemprop="dateModified" datetime="2021-11-14T20:12:02+08:00">2021-11-14</time>
   </span>
   <span id="2021/09/09/64位标准ROP与堆栈平衡/" class="item leancloud_visitors" data-flag-title="标准64位程序ROP流程和堆栈平衡" title="阅读次数">
       <span class="icon">
@@ -297,7 +297,7 @@ Nirvana = 清風微醺 = 凌恒</title>
     <div class="item left">
       
 
-  <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciub8ja1j20zk0m81ky.jpg" title="LibcSearcher环境配置和ubuntu更新换源问题">
+  <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipew8gmvyj20zk0m87wh.jpg" title="LibcSearcher环境配置和ubuntu更新换源问题">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> CTF</span>
   <h3>LibcSearcher环境配置和ubuntu更新换源问题</h3>
@@ -307,7 +307,7 @@ Nirvana = 清風微醺 = 凌恒</title>
     <div class="item right">
       
 
-  <a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4wqtg4j20zk0m8x6p.jpg" title="电科新生赛">
+  <a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclwuom7cj20zk0m8dvn.jpg" title="电科新生赛">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> CTF</span>
   <h3>电科新生赛</h3>
@@ -437,10 +437,30 @@ Nirvana = 清風微醺 = 凌恒</title>
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/" title="分类于 版权声明">版权声明</a>
+</div>
+
+    <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
   </li>
 
       
@@ -460,6 +480,16 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
     <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
   </li>
 
@@ -470,7 +500,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
+    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
   </li>
 
       
@@ -487,40 +517,10 @@ Nirvana = 清風微醺 = 凌恒</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/" title="分类于 版权声明">版权声明</a>
-</div>
-
-    <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
-</div>
-
-    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
     <span><a href="/2021/10/21/%E4%B8%80%E9%81%93%E9%99%90%E5%88%B6%E5%BE%88%E5%A4%9A%E7%9A%84fmt%E9%A2%98/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
   </li>
 
   </ul>
