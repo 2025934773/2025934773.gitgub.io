@@ -117,12 +117,12 @@ Nirvana = 清風微醺 = 凌恒</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciusoyjnj219g0u0x56.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
           <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicivghyooj20zk0m8dir.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
         </ul>
       </div>
     </header>
@@ -172,23 +172,23 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>这道题是 BUUCTF 上 pwn 练习题里的 [OGeek2019] babyrop。</p>
 <h1 id="代码审计"><a class="markdownIt-Anchor" href="#代码审计">#</a> 代码审计</h1>
 <p>老规矩先 checksec 一下：</p>
-<img data-src="\images\babyrop\checksec.png" style="zoom:67%;"/>
+<p><img data-src="https://tva2.sinaimg.cn/large/008qDYGVgy1gwey0cxfglj30hb03itad.jpg" alt="checksec"></p>
 <p>没有 canary 保护，nx 保护开启排除 shellcode 可能性，FULL RELEO 为地址随机化。</p>
 <p>观察主函数，先设定了一个闹铃，到时间就会强制退出程序，解除闹铃的方法在上一篇博客中提到过了，</p>
 <p>这道题中闹铃函数依然对我们解题起不到什么干扰作用。</p>
-<img data-src="\images\babyrop\1.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1gwexwagez9j30dg08076b.jpg" alt="1"></p>
 <p>主函数的思路大概是：生成一个随机数，把这个随机数作为参数传进 sub_804871F () 函数里，然后将该函数返回的结果作为参数再传进 sub_80487D0 () 里</p>
 <h2 id="sub_804871f"><a class="markdownIt-Anchor" href="#sub_804871f">#</a> sub_804871F()</h2>
-<img data-src="\images\babyrop\2.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1gwexwwrkglj30c309ojv8.jpg" alt="2"></p>
 <p>sprintf（）函数将生成的随机数 a1 加到了 s [32] 的数组中。这里题目有 read 函数，但是没有栈溢出的可能，读入 buf 之后，读取 buf 的长度，然后比较 buf 和 s 字符串的大小（比较长度为前 v1 个字符）。</p>
 <p>此时如果 strncmp（）的结果不为 0，则直接退出程序。因此我们第一个目的：使 strncmp 结果为 0</p>
 <h2 id="sub_80487d0"><a class="markdownIt-Anchor" href="#sub_80487d0">#</a> sub_80487D0（）</h2>
-<img data-src="\images\babyrop\3.png" style="zoom:67%;"/>
+<p><img data-src="https://tva1.sinaimg.cn/large/008qDYGVgy1gwexx45o25j30dq06bwga.jpg" alt="3"></p>
 <p>sub_804871F () 函数会将 buf [7] 作为参数传进来，将它的 ASCII 码比对，看到全程序中唯一一个存在栈溢出漏洞可能性的地方。但是必须满足 a1 的 ASCII 码值能达到栈溢出的大小。第二个目的：使 a1 的 ASCII 码值（sub_804871F () 函数里的 buf [7] 的 ASCII 码值尽量大）</p>
 <h1 id="解题思路"><a class="markdownIt-Anchor" href="#解题思路">#</a> 解题思路</h1>
 <p>题目中我们最终能利用的一个漏洞即为最终的栈溢出漏洞，而将题目扔进 ida 里找不到 system 函数和 /bin/sh，则明显要构造 ROP 链寻找 libc 解题了。</p>
 <h2 id="first让strncmp结果为0"><a class="markdownIt-Anchor" href="#first让strncmp结果为0">#</a> First：让 strncmp 结果为 0</h2>
-<img data-src="\images\babyrop\2.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1gwexwwrkglj30c309ojv8.jpg" alt="2"></p>
 <p>当 buf 与 s 数组完全相同时，strncmp 结果会为 0，但是 s 为系统生成的随机数，而 buf 是我们输入的数据，两者显然不可能相等。</p>
 <p>另一种办法就是使 v1 等于 0，这样 strncmp 的结果仍为 0。</p>
 <p>而 v1 是 strlen 函数读取 buf 的长度大小，使他为 0 就很简单了，标准的长度检测绕过，让 buf 数组的第一位为‘\x00’即可。此时程序不会退出。</p>
@@ -197,19 +197,19 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>ASCII 码对照表：</p>
 <p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3d6OTQ3MzI0L2FydGljbGUvZGV0YWlscy84MDA3NjQ5Ng==">https://blog.csdn.net/wz947324/article/details/80076496</span></p>
 <p>可以看出，在扩展的 ASCII 码中才有我们需要的 250 + 的 ASCII 码值，而这些字符里，如果用键盘打出来，比如 “≥” 的 ascii 码值为 242，但是在 vscode 里面可以看到，他的 ASCII 码值并没有 242</p>
-<img data-src="\images\babyrop\4.png" style="zoom:67%;"/>
+<p><img data-src="https://tva4.sinaimg.cn/large/008qDYGVgy1gwexxes55qj31040rqqam.jpg" alt="4"></p>
 <p>因此我们需要用到转义字符。</p>
-<img data-src="\images\babyrop\5.png" style="zoom:67%;"/>
+<p><img data-src="https://tva1.sinaimg.cn/large/008qDYGVgy1gwexyqn73aj30k00fi0ze.jpg" alt="5"></p>
 <p>\ 为转义字符，而’\xhh‘表示 ASCII 码值与’hh’这个十六进制数相等的符号，例如’\xff’表示 ASCII 码为 255 的符号。</p>
 <p>奇怪的是，我把’\xff’和其他 ASCII 码大于 128 的符号放进 vscode，只有用 unsigned __int8 转换出来的是他们的 ASCII 码值，而用 unsigned int 和 int 转换出来的都是负数，而 ASCII 码小于 128 的就不会出现这种情况。</p>
-<img data-src="\images\babyrop\6.png" style="zoom:67%;"/>
+<p><img data-src="https://tva1.sinaimg.cn/large/008qDYGVgy1gwexyypfeej31040rqwm6.jpg" alt="6"></p>
 <p>我推测是这些编译器还未对扩展的 ASCII 码表进行处理。（或者涉及补码的事吧）</p>
 <p>也不想深究了。</p>
 <p>所以我们让 buf [7]=’\xff’就行了。综合 first 步，代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">&#x27;\x00&#x27;</span>+<span class="string">&#x27;\xff&#x27;</span>*<span class="number">7</span></span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.recvuntil(<span class="string">&quot;Correct\n&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p>我们还要注意到，有一个让 buf [v5 - 1] = 0 的数，应该考虑该语句会不会影响到 buf [7] 的值。v5 为 read 函数返回的值，参考网上资料：read 函数返回的是读取的字节数。</p>
 <p>引起我的思考，“读取的字节数” 包不包含最后的’\x00’结束符呢？用 vscode 验证：</p>
-<img data-src="\images\babyrop\7.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax2.sinaimg.cn/large/008qDYGVgy1gwexz6qcjkj31040rq100.jpg" alt="7"></p>
 <p>答案是包含。那么我上述代码 v5 的值为 9，那么 buf [v5-1] 就未影响到 buf [7] 的值。否则我们可能就要构造</p>
 <p>payload = ‘\x00’+’\xff’*8</p>
 <h2 id="finallyrop"><a class="markdownIt-Anchor" href="#finallyrop">#</a> Finally:ROP!</h2>
@@ -219,7 +219,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>注意点：1.32 位程序传参方式为栈传参，而 64 位程序则是优先通过寄存器传参，届时就需要用 ROPgadget 寻找 gadgets 来进行 ROP 了。</p>
 <p>​                2.32 位程序里 main 函数地址不能用 elf.sym [“main”],(我也不知道为什么，谁让咱菜呢)</p>
 <p>​                3.32 位程序里调用函数后需要先压返回地址，再压参数。</p>
-<img data-src="\images\babyrop\7.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1gwey04vf79j30o201yjt0.jpg" alt="8"></p>
 <p>​                4.libc 题目中提供了，<span class="exturl" data-url="aHR0cDovL3huLS1saWJjLTItMjMtZnA2bi5zbw==">为 libc-2-23.so</span>，应该可以直接用，我是把他加进了 Libcsearcher 里然后再用的。</p>
 <p>关于 Libcsearcher 是一个寻找 libc 的工具：具体安装教程见百度，使用教程可以在 Libcsearcher/libc-database 里的 README.md 中查看</p>
 <h1 id="完整exp"><a class="markdownIt-Anchor" href="#完整exp">#</a> 完整 exp</h1>
@@ -238,7 +238,7 @@ Nirvana = 清風微醺 = 凌恒</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-09-03 21:07:43" itemprop="dateModified" datetime="2021-09-03T21:07:43+08:00">2021-09-03</time>
+    <time title="修改时间：2021-11-14 20:18:02" itemprop="dateModified" datetime="2021-11-14T20:18:02+08:00">2021-11-14</time>
   </span>
   <span id="2021/09/03/babyrop/" class="item leancloud_visitors" data-flag-title="标准32位程序ROP流程和c语言转义字符" title="阅读次数">
       <span class="icon">
@@ -296,7 +296,7 @@ Nirvana = 清風微醺 = 凌恒</title>
     <div class="item left">
       
 
-  <a href="/2021/08/20/string/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevgoki5j20zk0m84qp.jpg" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">
+  <a href="/2021/08/20/string/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclj61ylzj20zk0m8b29.jpg" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> CTF</span>
   <h3>攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</h3>
@@ -306,7 +306,7 @@ Nirvana = 清風微醺 = 凌恒</title>
     <div class="item right">
       
 
-  <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclxp31goj20zk0m8qv5.jpg" title="LibcSearcher环境配置和ubuntu更新换源问题">
+  <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclflwv2aj20zk0m84qp.jpg" title="LibcSearcher环境配置和ubuntu更新换源问题">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> CTF</span>
   <h3>LibcSearcher环境配置和ubuntu更新换源问题</h3>
@@ -439,56 +439,6 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/" title="分类于 版权声明">版权声明</a>
-</div>
-
-    <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
-</div>
-
-    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
     <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
   </li>
 
@@ -499,7 +449,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
   </li>
 
       
@@ -519,7 +469,57 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
 </div>
 
+    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
     <span><a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" title="堆学习-UAF">堆学习-UAF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/" title="分类于 版权声明">版权声明</a>
+</div>
+
+    <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
   </li>
 
   </ul>

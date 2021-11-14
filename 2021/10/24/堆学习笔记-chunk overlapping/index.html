@@ -117,12 +117,12 @@ Nirvana = 清風微醺 = 凌恒</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipewr8iypj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclj9410cj20zk0m8h12.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
           <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
         </ul>
       </div>
     </header>
@@ -188,9 +188,9 @@ Nirvana = 清風微醺 = 凌恒</title>
  提取码：F1re</p>
 <p>很友好的一道题，题目是常见的菜单。</p>
 <p>checksec 一下：</p>
-<img data-src="\images\chunk-overlapping\10.png" style="zoom:67%;"/>
+<p><img data-src="https://tva2.sinaimg.cn/large/008qDYGVgy1gwey2zn4zjj30de03n0u9.jpg" alt="10"></p>
 <p>gdb 调试后还原堆结构体：</p>
-<img data-src="\images\chunk-overlapping\1.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax3.sinaimg.cn/large/008qDYGVgy1gwey0utazpj30og0dx76q.jpg" alt="1"></p>
 <ul>
 <li>
 <p>功能一：create_heap: 在选择创造堆块的功能时，系统会先自动分配了 0x20 的内存，拿来存放结构体。然后可以分配用户输入的大小的堆。</p>
@@ -212,7 +212,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>③：改写 free_got 成 system 函数地址，并在 free 的参数里放置 “/bin/sh&quot;, 最后利用 delete_heap 函数调用 free 函数实现 get shell。</p>
 <h3 id="实现步骤1"><a class="markdownIt-Anchor" href="#实现步骤1">#</a> 实现步骤①：</h3>
 <p>这是正常创建两个堆后的内存图，content size 均为 0x10.</p>
-<img data-src="\images\chunk-overlapping\2.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax1.sinaimg.cn/large/008qDYGVgy1gwey1960wxj30hb05oq8p.jpg" alt="2"></p>
 <p>由于我们能输入到 content 里面的数据是 content size+1 个，因此我们最多只能覆盖到 0x6032d0 的第一个字节，也就是覆盖到第二个堆块的 prev_size 字节。但我们知道，前一个堆不为空的时候，该堆的 prev_size 是不起作用的，置为 0，而此时该堆的 prev_size 是可以拿来储存物理相邻的前一个堆的数据的 (<strong>该机制被称为 chunk 的空间复用</strong>)。且根据堆分配机制，用户请求的字节是拿来储存数据的，若我们一开始给 heap1 请求 0x18 的内存，由于 chunk 空间复用的关系，系统只会多分配 0x10 的内存给 heap1，而由于 edit_heap 函数里的：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read_input(*((<span class="keyword">void</span> **)*(&amp;heaparray + v1) + <span class="number">1</span>), *(_QWORD *)*(&amp;heaparray + v1) + <span class="number">1LL</span>);</span><br></pre></td></tr></table></figure>
 <p>因此我们可以读入 0x19 个字符，此时就可以覆盖到 heap2 的 size 字段。</p>
@@ -223,14 +223,14 @@ Nirvana = 清風微醺 = 凌恒</title>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create(<span class="number">0x18</span>,<span class="string">b&#x27;aaaaaaaa&#x27;</span>)</span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">b&#x27;bbbbbbbb&#x27;</span>)</span><br><span class="line">pad = <span class="string">b&#x27;/bin/sh\0&#x27;</span>+<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x10</span>+<span class="string">b&#x27;\x41&#x27;</span></span><br><span class="line">edit(<span class="number">0</span>,pad)</span><br></pre></td></tr></table></figure>
 <p>这里 pad 里面为什么要加入’/bin/sh\0’先埋一个伏笔。</p>
 <p>此时查看一下堆：</p>
-<img data-src="\images\chunk-overlapping\3.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1gwey1hm10uj30eq053jw1.jpg" alt="3"></p>
 <p>可以看到 heap2 的 size 字段确实被覆盖掉了。</p>
 <h3 id="实现步骤2"><a class="markdownIt-Anchor" href="#实现步骤2">#</a> 实现步骤②：</h3>
 <p>经过步骤一，heap2 的 struct 部分已经被系统看做是一块 0x40 大小的堆块（称作 s1，以便后面好讲述），content 部分是一块 0x20 大小的堆块（称作 s2）。这两个堆块的大小都属于 fastbin 的范围，由于<strong> fastbin 由于追求效率，安全检验机制机制较弱，free 时找到 fastbin 链表中符合大小的堆块就直接加入了，不会检测 pre_insue 的值。同时，物理地址相邻的 fastbin 不会合并</strong>，因此我们直接 free 掉 heap2 就会将 s1 与 s2 置入 fastbin 链表中（这道题我的环境置入了 tcachebins 链表，应该是由于我的本地 libc 高于它的版本导致的，不过 tcachebins 与 fastbin 性质相似。）</p>
 <p>如图，已含有 0x20 与 0x40 大小的空闲堆。</p>
-<img data-src="\images\chunk-overlapping\4.png" style="zoom:67%;"/>
+<p><img data-src="https://tva1.sinaimg.cn/large/008qDYGVgy1gwey1q0xfzj307k02e74u.jpg" alt="4"></p>
 <p>同时，原堆处变成了这样：</p>
-<img data-src="\images\chunk-overlapping\5.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1gwey1vyto5j30et0510wy.jpg" alt="5"></p>
 <p>此时我们 create 新的 heap2 时，系统会先自动分配一个 0x20 大小的结构体，这时 tcachebins 链表里 0x20 空闲的堆块就被拿回来继续用了，也就是上图中的 2，若我们申请 0x30 大小，系统会返回 0x40 大小的堆块，而 tcachebins 链表中也有 0x40 空闲的堆块，也就是上图中的 1。（注意，申请相同大小才能从 fastbin 或者 tcachebins 中直接取堆块，因此申请 0x30 是有讲究的）。这样我们就实现了原来的 struct 部分拿来充当 content，而原来的 content 部分拿来充当 struct。而我们能够输入 0x31 大小的数据，足够覆盖到新 struct 部分的指针处了。而 edit_heap 函数可以改变指针所指地方的内容，show_heap 又可输出指针所指地方的内容。因此我们就实现了任意地址读写的功能。</p>
 <p>同时由于 edit_heap 函数里读入字符串长度依旧由 struct 部分里的 content size 决定：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read_input(*((<span class="keyword">void</span> **)*(&amp;heaparray + v1) + <span class="number">1</span>), *(_QWORD *)*(&amp;heaparray + v1) + <span class="number">1LL</span>);</span><br></pre></td></tr></table></figure>
@@ -244,7 +244,7 @@ Nirvana = 清風微醺 = 凌恒</title>
  提取码：F1re</p>
 <p>题目是一个订书系统。定义了三个堆块，book1 的堆块，book2 的堆块，dest 的堆块以及最后储存所有订书信息的堆块 v5。</p>
 <p>checksec 一下</p>
-<img data-src="\images\chunk-overlapping\11.png" style="zoom:67%;"/>
+<p><img data-src="https://tva2.sinaimg.cn/large/008qDYGVgy1gwey39dv5fj30c403mab9.jpg" alt="11"></p>
 <p>实现了功能：</p>
 <p>①：修改 book1 和 book2 的堆块里的内容。</p>
 <p>②：删除某一个订单。</p>
@@ -252,16 +252,16 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p><strong>因为我写这个博客写了好几天，因此这里面 gdb 调试的地址不太相同。</strong></p>
 <h2 id="漏洞函数"><a class="markdownIt-Anchor" href="#漏洞函数">#</a> 漏洞函数</h2>
 <h3 id="堆溢出"><a class="markdownIt-Anchor" href="#堆溢出">#</a> 堆溢出</h3>
-<img data-src="\images\chunk-overlapping\6.png" style="zoom:67%;"/>
+<p><img data-src="https://tva1.sinaimg.cn/large/008qDYGVgy1gwey262didj30hk0aljue.jpg" alt="6"></p>
 <p>函数只要不键入回车就不会停止输入，有任意长度的堆溢出漏洞。</p>
 <h3 id="uaf"><a class="markdownIt-Anchor" href="#uaf">#</a> UAF</h3>
-<img data-src="\images\chunk-overlapping\7.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1gwey2c0o9xj30hk0aljue.jpg" alt="7"></p>
 <p>函数 free 堆块后没有将堆指针置为 NULL。存在 UAF 漏洞。</p>
 <h3 id="格式化字符串漏洞"><a class="markdownIt-Anchor" href="#格式化字符串漏洞">#</a> 格式化字符串漏洞</h3>
-<img data-src="\images\chunk-overlapping\8.png" style="zoom:67%;"/>
+<p><img data-src="https://tva2.sinaimg.cn/large/008qDYGVgy1gwey2i9s4ej307m024dfz.jpg" alt="8"></p>
 <p>以及函数退出前有一个格式化字符串漏洞。</p>
 <h3 id="奇怪的字符输入长度"><a class="markdownIt-Anchor" href="#奇怪的字符输入长度">#</a> 奇怪的字符输入长度</h3>
-<img data-src="\images\chunk-overlapping\9.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax1.sinaimg.cn/large/008qDYGVgy1gwey2p9f8oj309g03uabe.jpg" alt="9"></p>
 <p>按理来说只用读入一个字符即可，在程序开了 canary 保护下能读入这么多字符可能存在伏笔。</p>
 <h2 id="思路分析"><a class="markdownIt-Anchor" href="#思路分析">#</a> 思路分析</h2>
 <p>堆块里没有指针可以让我们修改，因此我们只能通过格式化字符串漏洞控制程序流程，控制 dest 里面的内容来实现篡改返回地址或者函数 GOT 表等。而 dest 里的内容本是固定的 &quot;Your order is submitted!\n&quot;，因此我们需要用前两个漏洞来实现对格式化字符串漏洞的利用。</p>
@@ -275,9 +275,9 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>②第二次利用格式化字符串漏洞修改返回地址为 one_gadget 地址。（由于 main 函数返回后没有调用任意函数，修改函数 GOT 表无法达到 getshell 的目的）</p>
 <h2 id="具体实现"><a class="markdownIt-Anchor" href="#具体实现">#</a> 具体实现：</h2>
 <p>计算一下如何往 book1 和 book2 堆块里填充内容才能在 dest 里构造出合理的格式化字符串。</p>
-<img data-src="\images\chunk-overlapping\12.png" style="zoom:67%;"/>
+<p><img data-src="https://tva1.sinaimg.cn/large/008qDYGVgy1gwey3l4smaj30lv092gop.jpg" alt="12"></p>
 <p>实现 chunk overlapping（还没有执行 submit 函数）我们的堆分布是这样的：</p>
-<img data-src="\images\chunk-overlapping\13.png" style="zoom:67%;"/>
+<p><img data-src="https://tva2.sinaimg.cn/large/008qDYGVgy1gwey3riz52j30jm0bmwpz.jpg" alt="13"></p>
 <p>由 Submit 函数：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">strcpy</span>(a1, <span class="string">&quot;Order 1: &quot;</span>);</span><br><span class="line">v3 = <span class="built_in">strlen</span>(a2);</span><br><span class="line"><span class="built_in">strncat</span>(a1, a2, v3);</span><br><span class="line"><span class="built_in">strcat</span>(a1, <span class="string">&quot;\nOrder 2: &quot;</span>);</span><br><span class="line">v4 = <span class="built_in">strlen</span>(a3);</span><br><span class="line"><span class="built_in">strncat</span>(a1, a3, v4);</span><br><span class="line">*(_WORD *)&amp;a1[<span class="built_in">strlen</span>(a1)] = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
 <p>执行 submit 函数后：</p>
@@ -310,10 +310,10 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>同时找到 libc_start_main_240 的偏移为 31，顺便把该地址泄露出来。</p>
 <p>最后，当我们成功执行第一次 fmt 后，程序会重新进入 main 函数，这时的 main 函数返回地址会与第一次执行的 main 函数有一个固定的偏移，我们最终的目的是改写第二次执行的 main 函数返回地址为 one_gadget 地址，因此我们需要获取第二次 main 函数的返回地址，因此需要找栈上一个不变的地址，借此算出第二次 main 函数返回地址。</p>
 <p>gdb 断点打在 printf 上，在第一次 printf (dest) 时，我们调试后发现，栈上储存了一个栈上的地址，且两地址间固定偏移为 0xf0：</p>
-<img data-src="\images\chunk-overlapping\17.png" style="zoom:67%;"/>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1gwey52fhloj30ki0c6k14.jpg" alt="17"></p>
 <p>该偏移为 28。</p>
 <p>同时我们继续运行到第二次 printf (dest) 时，单步 n 执行下去，找到第二次 main 函数的返回地址：</p>
-<img data-src="\images\chunk-overlapping\18.png" style="zoom:67%;"/>
+<p><img data-src="https://tva2.sinaimg.cn/large/008qDYGVgy1gwey58k21rj30va0mtaq9.jpg" alt="18"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0x7fffd740e4c0-0x7fffd740e2d8=0x1e8</span><br></pre></td></tr></table></figure>
 <p>所以储存第二次 main 函数返回地址的栈地址我们也找到了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fini_array=<span class="number">0x6011b8</span> <span class="comment">#0x400830</span></span><br><span class="line">main_addr=<span class="number">0x400a39</span></span><br><span class="line">content1=<span class="string">b&#x27;%&#x27;</span>+<span class="built_in">str</span>(<span class="number">0xa39</span>).encode()+<span class="string">b&#x27;c%13$hn&#x27;</span></span><br><span class="line">content1+=<span class="string">b&#x27;-%31$p&#x27;</span>+<span class="string">b&#x27;-%28$p&#x27;</span></span><br><span class="line">content1=content1.ljust(<span class="number">0x74</span>,<span class="string">b&#x27;a&#x27;</span>)</span><br><span class="line">content1=content1.ljust(<span class="number">0x88</span>,<span class="string">b&#x27;\0&#x27;</span>)</span><br><span class="line">content1+=p64(<span class="number">0x151</span>)</span><br></pre></td></tr></table></figure>
@@ -322,7 +322,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>处理接受到的地址：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">r.recvuntil(<span class="string">&quot;-&quot;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;-&quot;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;-&quot;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;-&quot;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;-&quot;</span>)</span><br><span class="line">libc_start_main_240=<span class="built_in">int</span>(r.recv(<span class="number">14</span>),<span class="number">16</span>)</span><br><span class="line">libc_base=libc_start_main_240-<span class="number">0x20830</span><span class="comment">#调试计算libc_start_main_240与libc_base之间固定偏移为0x20830</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;libc_base:&quot;</span>+<span class="built_in">hex</span>(libc_base))</span><br><span class="line">r.recvuntil(<span class="string">&quot;-&quot;</span>)</span><br><span class="line">stack_addr = <span class="built_in">int</span>(r.recv(<span class="number">14</span>),<span class="number">16</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;stack_addr: &quot;</span>+<span class="built_in">hex</span>(stack_addr))</span><br><span class="line">one_gadget = libc_base+<span class="number">0x45216</span></span><br><span class="line">ret_addr = stack_addr-<span class="number">0x1e8</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ret_addr: &quot;</span>+<span class="built_in">hex</span>(ret_addr))</span><br></pre></td></tr></table></figure>
 <p>可以看到我们确实控制程序流程到执行第二次 main 函数</p>
-<img data-src="\images\chunk-overlapping\19.png" style="zoom:67%;"/>
+<p><img data-src="https://tva2.sinaimg.cn/large/008qDYGVgy1gwey5g4v5uj30r006z3zm.jpg" alt="19"></p>
 <h3 id="第二次执行fmt"><a class="markdownIt-Anchor" href="#第二次执行fmt">#</a> 第二次执行 fmt</h3>
 <p>这次的任务只有一个了，改返回地址！前面我们已经获取到了 ret_addr，同样通过奇怪的菜单输入长度弄到栈上后，通过调试我们发现后 3 个字节都不同，因此我们需要两次 $hn 修改。</p>
 <p>往栈上写 ret_addr，获取 one_gadget 低四位的值：</p>
@@ -338,7 +338,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <p>main 函数并不是程序的起点，也不是程序的终点</p>
 </li>
 <li>
-<img data-src="\images\chunk-overlapping\14.png" style="zoom:67%;"/>
+<p><img data-src="https://tva4.sinaimg.cn/large/008qDYGVgy1gwey44yn0yj30kl0hnta5.jpg" alt="14"></p>
 </li>
 <li>
 <p>图片出处:<span class="exturl" data-url="aHR0cDovL2RicC1jb25zdWx0aW5nLmNvbS90dXRvcmlhbHMvZGVidWdnaW5nL2xpbnV4UHJvZ3JhbVN0YXJ0dXAuaHRtbA==">http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html</span></p>
@@ -356,9 +356,9 @@ Nirvana = 清風微醺 = 凌恒</title>
 <h3 id="如何找fini_array"><a class="markdownIt-Anchor" href="#如何找fini_array">#</a> 如何找 fini_array?</h3>
 <p>1.64 位动态链接程序：</p>
 <p>​		①查看符号表：在 gdb 中用 elf 命令，.fini_array 开始的地址就是 fini_array [0] 的地址：</p>
-<p>​		<img data-src="\images\chunk-overlapping\15.png" style="zoom:67%;"/></p>
+<p>​		<img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1gwey4drin8j30e50c4wkf.jpg" alt="15"></p>
 <p>​		②在 IDA 里 ctrl+s 寻找 fini_array：</p>
-<p>​		<img data-src="\images\chunk-overlapping\16.png" style="zoom:67%;"/></p>
+<p>​	<img data-src="https://tvax1.sinaimg.cn/large/008qDYGVgy1gwey4jrzuij313o0hrtv5.jpg" alt="16"></p>
 <p>2.64 位静态链接程序：</p>
 <p>​		64 位静态链接程序是没有符号表的，寻找 fini_array 的方法：</p>
 <p>​		(1) readelf -h programname 查看程序入口地址，gdb 将断点打在程序入口地址处。</p>
@@ -380,7 +380,7 @@ Nirvana = 清風微醺 = 凌恒</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-11-14 17:11:27" itemprop="dateModified" datetime="2021-11-14T17:11:27+08:00">2021-11-14</time>
+    <time title="修改时间：2021-11-14 20:23:01" itemprop="dateModified" datetime="2021-11-14T20:23:01+08:00">2021-11-14</time>
   </span>
   <span id="2021/10/24/堆学习笔记-chunk overlapping/" class="item leancloud_visitors" data-flag-title="堆学习-Chunk Overlapping" title="阅读次数">
       <span class="icon">
@@ -438,7 +438,7 @@ Nirvana = 清風微醺 = 凌恒</title>
     <div class="item left">
       
 
-  <a href="/2021/10/21/%E4%B8%80%E9%81%93%E9%99%90%E5%88%B6%E5%BE%88%E5%A4%9A%E7%9A%84fmt%E9%A2%98/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicis3attqj20zk0m8k7l.jpg" title="格式化字符串漏洞进阶">
+  <a href="/2021/10/21/%E4%B8%80%E9%81%93%E9%99%90%E5%88%B6%E5%BE%88%E5%A4%9A%E7%9A%84fmt%E9%A2%98/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclgi503lj20zk0m8hdt.jpg" title="格式化字符串漏洞进阶">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> CTF</span>
   <h3>格式化字符串漏洞进阶</h3>
@@ -448,7 +448,7 @@ Nirvana = 清風微醺 = 凌恒</title>
     <div class="item right">
       
 
-  <a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicljitigmj20zk0m87fp.jpg" title="堆学习-UAF">
+  <a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeyvx1d4j20zk0m8hdt.jpg" title="堆学习-UAF">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> 学习笔记</span>
   <h3>堆学习-UAF</h3>
@@ -581,17 +581,17 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+    <span><a href="/2021/10/21/%E4%B8%80%E9%81%93%E9%99%90%E5%88%B6%E5%BE%88%E5%A4%9A%E7%9A%84fmt%E9%A2%98/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
   </li>
 
       
@@ -611,7 +611,17 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
   </li>
 
       
@@ -631,17 +641,17 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/10/21/%E4%B8%80%E9%81%93%E9%99%90%E5%88%B6%E5%BE%88%E5%A4%9A%E7%9A%84fmt%E9%A2%98/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
 </div>
 
-    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
+    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
   </li>
 
       
@@ -652,16 +662,6 @@ Nirvana = 清風微醺 = 凌恒</title>
 </div>
 
     <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
   </li>
 
   </ul>
