@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclxxcb6rj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
         </ul>
       </div>
     </header>
@@ -120,7 +120,55 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" itemprop="url" title="版权声明"><img data-src="https://tva3.sinaimg.cn/mw690/6833939bly1giclx6phq6j20zk0m8e36.jpg"></a>
+    <a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclh3brzpj20zk0m8ann.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-20 21:32:39">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-20T21:32:39+08:00">2021-08-20</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>4.7k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></h3>
+    <div class="excerpt">
+        攻防世界 string 应该是新手区数一数二的难题，难点在理解程序流程。
+先观察主函数:
+
+# alarm 函数
+# 什么是 alarm 函数？
+如上图所示，在做一些 pwn 题的时候，我们有时会遇到 alarm(0x3Cu) 函数。alarm 函数中的参数 0x3Cu 是十六进制无符号数，即十进制对应 60，所以该函数的作用是在程序运行 60 秒后，给进程发送 SIGALRM 信号，如果不另编写程序接受处理此信号，则默认结束此程序。
+# 为什么要使用 alarm...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
+      </span>
+    </div>
+    <a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" itemprop="url" title="版权声明"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicis3attqj20zk0m8k7l.jpg"></a>
   </div>
   <div class="info">
     
@@ -199,7 +247,7 @@
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">11</span>
+        <span class="count">12</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -211,7 +259,7 @@
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">5</span>
+        <span class="count">6</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -289,57 +337,7 @@
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
     <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/" title="分类于 版权声明">版权声明</a>
-</div>
-
-    <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
-</div>
-
-    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
   </li>
 
       
@@ -359,7 +357,57 @@
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
+    <span><a href="/2021/11/15/%E4%B8%80%E9%81%93%E9%99%90%E5%88%B6%E5%BE%88%E5%A4%9A%E7%9A%84fmt%E9%A2%98/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/" title="分类于 版权声明">版权声明</a>
+</div>
+
+    <span><a href="/2021/08/20/%E5%A3%B0%E6%98%8E/" title="版权声明">版权声明</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
     <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
   </li>
 
       
@@ -379,7 +427,7 @@
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/11/15/%E4%B8%80%E9%81%93%E9%99%90%E5%88%B6%E5%BE%88%E5%A4%9A%E7%9A%84fmt%E9%A2%98/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
   </li>
 
   </ul>
@@ -394,7 +442,7 @@
   <div class="copyright">
     
     &copy; 2010 – 
-    <span itemprop="copyrightYear">2021</span>
+    <span itemprop="copyrightYear">2022</span>
     <span class="with-love">
       <i class="ic i-sakura rotate"></i>
     </span>
