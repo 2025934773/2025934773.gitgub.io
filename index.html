@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclize41wj20zk0m87gk.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -121,7 +121,56 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciszlczyj20zk0m816d.jpg"></a>
+    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclh3brzpj20zk0m8ann.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-03-13 15:07:13">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-03-13T15:07:13+08:00">2022-03-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>5k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结">Tcachebin 总结</a></h3>
+    <div class="excerpt">
+        # Tcache
+Tcache 是 glibc 2.26 之后引入的机制，与 glibc 2.23 版本下堆利用方式有一定区别，产生了新的利用方式。
+
+# 0x1 相关结构体
+# tcache_entry
+1234typedef struct tcache_entry&amp;#123; struct tcache_entry *next;&amp;#125; tcache_entry;
+tcache_entry 用来链接空闲的 tcache chunk，其中的 next 指针指向下一个大小相同的空闲 tcache chunk。
+注意：这里的 next 指针指向的是 user data...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
+      </span>
+    </div>
+    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexw3o58j20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -168,7 +217,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciuv0socj20zk0m8qes.jpg"></a>
+    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclh3brzpj20zk0m8ann.jpg"></a>
   </div>
   <div class="info">
     
@@ -213,7 +262,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" itemprop="url" title="格式化字符串漏洞进阶"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipexw3o58j20zk0m8e81.jpg"></a>
+    <a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" itemprop="url" title="格式化字符串漏洞进阶"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></a>
   </div>
   <div class="info">
     
@@ -268,7 +317,7 @@ checksec 一下：
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" itemprop="url" title="堆学习-UAF"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></a>
+    <a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" itemprop="url" title="堆学习-UAF"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></a>
   </div>
   <div class="info">
     
@@ -317,7 +366,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" itemprop="url" title="堆学习-Chunk Overlapping"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclffsa1cj20zk0m811l.jpg"></a>
+    <a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" itemprop="url" title="堆学习-Chunk Overlapping"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicit4jrvuj20zk0m8785.jpg"></a>
   </div>
   <div class="info">
     
@@ -367,7 +416,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" itemprop="url" title="电科新生赛"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></a>
+    <a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" itemprop="url" title="电科新生赛"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giciusoyjnj219g0u0x56.jpg"></a>
   </div>
   <div class="info">
     
@@ -420,7 +469,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" itemprop="url" title="标准64位程序ROP流程和堆栈平衡"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></a>
+    <a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" itemprop="url" title="标准64位程序ROP流程和堆栈平衡"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -473,7 +522,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" title="LibcSearcher环境配置和ubuntu更新换源问题"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></a>
+    <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" title="LibcSearcher环境配置和ubuntu更新换源问题"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclimtf7dj20zk0m8qav.jpg"></a>
   </div>
   <div class="info">
     
@@ -522,7 +571,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/03/babyrop/" itemprop="url" title="标准32位程序ROP流程和c语言转义字符"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclj61ylzj20zk0m8b29.jpg"></a>
+    <a href="/2021/09/03/babyrop/" itemprop="url" title="标准32位程序ROP流程和c语言转义字符"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></a>
   </div>
   <div class="info">
     
@@ -570,59 +619,16 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-08-20 21:32:39">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-20T21:32:39+08:00">2021-08-20</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>4.7k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>4 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></h3>
-    <div class="excerpt">
-        攻防世界 string 应该是新手区数一数二的难题，难点在理解程序流程。
-先观察主函数:
-
-# alarm 函数
-# 什么是 alarm 函数？
-如上图所示，在做一些 pwn 题的时候，我们有时会遇到 alarm(0x3Cu) 函数。alarm 函数中的参数 0x3Cu 是十六进制无符号数，即十进制对应 60，所以该函数的作用是在程序运行 60 秒后，给进程发送 SIGALRM 信号，如果不另编写程序接受处理此信号，则默认结束此程序。
-# 为什么要使用 alarm...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
-      </span>
-    </div>
-    <a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
 
   
+  <nav class="pagination">
+    <div class="inner">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
+    </div>
+  </nav>
 
 
 
@@ -648,7 +654,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">10</span>
+        <span class="count">11</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -660,7 +666,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">5</span>
+        <span class="count">6</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -715,6 +721,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/page/2/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -738,16 +745,6 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
     <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
   </li>
 
@@ -758,7 +755,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
+    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
   </li>
 
       
@@ -778,6 +775,16 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
     <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
   </li>
 
@@ -788,7 +795,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
+    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
   </li>
 
       
@@ -815,10 +822,10 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" title="堆学习-UAF">堆学习-UAF</a></span>
+    <span><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" title="Tcachebin 总结">Tcachebin 总结</a></span>
   </li>
 
       
@@ -828,7 +835,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
   </li>
 
   </ul>

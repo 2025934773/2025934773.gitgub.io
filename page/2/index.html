@@ -25,13 +25,11 @@
 
   
 
-<link rel="canonical" href="https://www.wdqjxtmph.top/archives/">
+<link rel="canonical" href="https://www.wdqjxtmph.top/page/2/">
 
 
 
-  <title>
-归档 |
-Nirvana = 清風微醺 = 凌恒</title>
+  <title>Nirvana = 清風微醺 = 凌恒</title>
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
   <div id="loading">
@@ -58,9 +56,11 @@ Nirvana = 清風微醺 = 凌恒</title>
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">归档
-  </h1>
-
+            <a href="/" class="logo" rel="start"><p class="artboard">Nirvana</p>
+              <h1 itemprop="name headline" class="title">清風微醺</h1>
+            </a>
+            <p class="meta" itemprop="description">= 凌恒 =</p>
+          
           </div>
         </div>
         <nav id="nav">
@@ -89,12 +89,12 @@ Nirvana = 清風微醺 = 凌恒</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
           <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx6phq6j20zk0m8e36.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
         </ul>
       </div>
     </header>
@@ -115,66 +115,66 @@ Nirvana = 清風微醺 = 凌恒</title>
       <div class="inner">
         <div id="main" class="pjax">
           
-  <div class="collapse wrap">
-    <h2 class="item header">
-          <a href="/">首页</a> <small>/</small>
-          目前共计 11 篇文章。 <small class="cheers">嗯.. 继续努力。</small>
-    </h2>
+  <div class="index wrap">
+    <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-20 21:32:39">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-20T21:32:39+08:00">2021-08-20</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>4.7k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>4 分钟</span>
+  </span>
+</div>
 
-          <h3 class="item section">
-            <a href="/archives/2022">2022 年</a><small>/</small><a href="/archives/2022/03">03 月</a>
+    <h3><a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></h3>
+    <div class="excerpt">
+        攻防世界 string 应该是新手区数一数二的难题，难点在理解程序流程。
+先观察主函数:
 
-      
-              <small>( 1 )</small>
-            </h3>
+# alarm 函数
+# 什么是 alarm 函数？
+如上图所示，在做一些 pwn 题的时候，我们有时会遇到 alarm(0x3Cu) 函数。alarm 函数中的参数 0x3Cu 是十六进制无符号数，即十进制对应 60，所以该函数的作用是在程序运行 60 秒后，给进程发送 SIGALRM 信号，如果不另编写程序接受处理此信号，则默认结束此程序。
+# 为什么要使用 alarm...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
+      </span>
+    </div>
+    <a href="/2021/08/20/string/" itemprop="url" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解" class="btn">more...</a>
+  </div>
+</article>
 
-          <h3 class="item section">
-            <a href="/archives/2022">2022 年</a><small>/</small><a href="/archives/2022/02">02 月</a>
+    </div>
 
-      
-              <small>( 1 )</small>
-            </h3>
-
-          <h3 class="item section">
-            <a href="/archives/2021">2021 年</a><small>/</small><a href="/archives/2021/11">11 月</a>
-
-      
-
-      
-              <small>( 2 )</small>
-            </h3>
-
-          <h3 class="item section">
-            <a href="/archives/2021">2021 年</a><small>/</small><a href="/archives/2021/10">10 月</a>
-
-      
-
-      
-              <small>( 2 )</small>
-            </h3>
-
-          <h3 class="item section">
-            <a href="/archives/2021">2021 年</a><small>/</small><a href="/archives/2021/09">09 月</a>
-
-      
-
-      
-
-      
-
-      
-              <small>( 4 )</small>
-            </h3>
-
-          <h3 class="item section">
-            <a href="/archives/2021">2021 年</a><small>/</small><a href="/archives/2021/08">08 月</a>
-
-      
-        <small>( 1 )</small>
-      </h3>
   </div>
 
   
+  <nav class="pagination">
+    <div class="inner">
+    <a class="extend prev" rel="prev" href="/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </div>
+  </nav>
 
 
 
@@ -290,7 +290,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
   </li>
 
       
@@ -310,7 +310,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
+    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
   </li>
 
       
@@ -330,7 +330,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
+    <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
   </li>
 
       
@@ -340,7 +340,27 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
   </li>
 
       
@@ -360,27 +380,7 @@ Nirvana = 清風微醺 = 凌恒</title>
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
     <span><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" title="Tcachebin 总结">Tcachebin 总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
   </li>
 
   </ul>
@@ -411,7 +411,7 @@ Nirvana = 清風微醺 = 凌恒</title>
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: 'archives/',
+    path: 'page/2/',
     favicon: {
       show: "（●´3｀●）やれやれだぜ",
       hide: "(´Д｀)大変だ！"
