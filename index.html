@@ -30,7 +30,7 @@
 
 
   <title>Nirvana = 清風微醺 = 凌恒</title>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
   <div id="loading">
     <div class="cat">
@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
         </ul>
       </div>
     </header>
@@ -121,7 +121,151 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclh3brzpj20zk0m8ann.jpg"></a>
+    <a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" itemprop="url" title="2022蓝帽pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-07-11 15:40:29">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-07-11T15:40:29+08:00">2022-07-11</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>4.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" itemprop="url" title="2022蓝帽pwn wp">2022蓝帽pwn wp</a></h3>
+    <div class="excerpt">
+        第一题的第五个解出：
+
+第二题的三血
+![4O`7$5(1E(BX]7UIT4DF1](https://tvax2.sinaimg.cn/large/008qDYGVly1h414l8rhvdj30al09yjtx.jpg)
+总体难度偏简单。
+# EscapeShellcode
+清空了所有寄存器（设置为 0xdeadbeefdeadbeef），包括 rsp。
+flag 读到了 bss 段上。
+seccomp 只允许调用 read 和 write。这里我只用到了 write。
+利用的主要是：
+write，read 函数遇到不可读写的区域，会返回 &amp;lt; 0...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
+      </span>
+    </div>
+    <a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" itemprop="url" title="2022蓝帽pwn wp" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/04/19/%E9%AB%98%E7%89%88%E6%9C%AC%E5%A0%86%E6%8A%80%E5%B7%A7/" itemprop="url" title="未命名"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclx6phq6j20zk0m8e36.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-04-19 19:40:30">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-04-19T19:40:30+08:00">2022-04-19</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>260</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/04/19/%E9%AB%98%E7%89%88%E6%9C%AC%E5%A0%86%E6%8A%80%E5%B7%A7/" itemprop="url" title="未命名">未命名</a></h3>
+    <div class="excerpt">
+        # glibc 2.30 以下
+house of storm：
+常规 largebin attack。
+新版 off by null：（两个网址）
+https://lexsd6.github.io/2021/07/12 / 高版本 libc (2.29-2.32) off by null 利用姿势总结 /
+https://blog.wjhwjhn.com/archives/193/
+# glibc 2.31
+新版 largebin attack:
+https://lexsd6.github.io/2021/11/07/Largebin Attack for Glibc 2.31 学习 /
+    </div>
+    <a href="/2022/04/19/%E9%AB%98%E7%89%88%E6%9C%AC%E5%A0%86%E6%8A%80%E5%B7%A7/" itemprop="url" title="未命名" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/04/06/wustctf2020_babyfmt/" itemprop="url" title="wustctf2020_babyfmt"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipewf5l51j20zk0m8b29.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-04-06 21:44:27">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-04-06T21:44:27+08:00">2022-04-06</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/04/06/wustctf2020_babyfmt/" itemprop="url" title="wustctf2020_babyfmt">wustctf2020_babyfmt</a></h3>
+    <div class="excerpt">
+        一道简单 fmt 题，但是我搜解题记录时，觉得解得都挺复杂的。
+似乎还没有文章用我的方法，那我就写一种简单的解法。
+# 绕过 fmt 判断条件
+我只用到了 fmt_attack 函数。
+由于有一个判定条件：
+12345678910111213141516unsigned __int64 __fastcall fmt_attack(int *a1)&amp;#123; char format[56]; // [rsp+10h] [rbp-40h] BYREF unsigned __int64 v3; // [rsp+48h] [rbp-8h] v3 = __readfsqword(0x28u);...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
+      </span>
+    </div>
+    <a href="/2022/04/06/wustctf2020_babyfmt/" itemprop="url" title="wustctf2020_babyfmt" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -170,7 +314,7 @@ tcache_entry 用来链接空闲的 tcache chunk，其中的 next 指针指向下
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexw3o58j20zk0m8e81.jpg"></a>
+    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></a>
   </div>
   <div class="info">
     
@@ -217,7 +361,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclh3brzpj20zk0m8ann.jpg"></a>
+    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipexe4oykj20zk0m87ji.jpg"></a>
   </div>
   <div class="info">
     
@@ -262,7 +406,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" itemprop="url" title="格式化字符串漏洞进阶"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></a>
+    <a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" itemprop="url" title="格式化字符串漏洞进阶"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -317,7 +461,7 @@ checksec 一下：
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" itemprop="url" title="堆学习-UAF"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></a>
+    <a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" itemprop="url" title="堆学习-UAF"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></a>
   </div>
   <div class="info">
     
@@ -366,7 +510,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" itemprop="url" title="堆学习-Chunk Overlapping"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicit4jrvuj20zk0m8785.jpg"></a>
+    <a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" itemprop="url" title="堆学习-Chunk Overlapping"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclhnx9glj20zk0m8npd.jpg"></a>
   </div>
   <div class="info">
     
@@ -416,7 +560,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" itemprop="url" title="电科新生赛"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giciusoyjnj219g0u0x56.jpg"></a>
+    <a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" itemprop="url" title="电科新生赛"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></a>
   </div>
   <div class="info">
     
@@ -466,159 +610,6 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" itemprop="url" title="标准64位程序ROP流程和堆栈平衡"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-09-09 20:52:45">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-09-09T20:52:45+08:00">2021-09-09</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>3.4k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>3 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" itemprop="url" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></h3>
-    <div class="excerpt">
-        一道积攒了很久才解出来的题，这道题大体不难，但是好多小细节呜呜呜。而且 Libcsearcher 里的 libc 库没更新（上篇博客讲了）。
-这道题是 BUUCTF 上的 ciscn_2019_c_1。标准的 64 位 ROP 流程，我也就分享一下自己的坎坷心路历程。
-# 代码审计
-
-老规矩 checksec 一下，只开了 nx 保护。
-观察 main 函数
-
-显然哦，只有输入 1 才有点用。
-# 关键函数:encrypt ()
-
-发现一个栈溢出漏洞。ROP 链的入口。
-然后就是读取 s 的长度，在长度范围内对内容进行加密：也就是根据 ascii...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
-      </span>
-    </div>
-    <a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" itemprop="url" title="标准64位程序ROP流程和堆栈平衡" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" title="LibcSearcher环境配置和ubuntu更新换源问题"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclimtf7dj20zk0m8qav.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-09-07 19:28:52">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-09-07T19:28:52+08:00">2021-09-07</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>697</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></h3>
-    <div class="excerpt">
-        # libcsearcher libc 库的更新安装
-之前用 libcsearcher 基本上都显示 no match libc。一直感觉很纳闷，后来请教了大佬之后才发现是 libc 库都没有安装。（如果小伙伴们也遇见这种问题，重新去安装一下 libc 库吧）
-# 先更新 ubuntu 的软件
-1sudo apt-get update
-“无法安全地用该源进行更新，所以默认禁用该源”
-这是我之前一直遇到的问题，但是拖到现在还没解决。解决方法：换清华的源。（默认为国外的源，太慢，不稳定）
-先将原来的配置文件备份：其中的 sources.list.bak 即为备份文件
-1sudo cp...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
-      </span>
-    </div>
-    <a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" title="LibcSearcher环境配置和ubuntu更新换源问题" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/09/03/babyrop/" itemprop="url" title="标准32位程序ROP流程和c语言转义字符"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-09-03 15:03:33">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-09-03T15:03:33+08:00">2021-09-03</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>3.3k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>3 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/09/03/babyrop/" itemprop="url" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></h3>
-    <div class="excerpt">
-        才学习了基本的 ROP 流程，到处找题练，不过也没做出来几道题，以这道 32 位的题作为例题吧。
-这道题是 BUUCTF 上 pwn 练习题里的 [OGeek2019] babyrop。
-# 代码审计
-老规矩先 checksec 一下：
-
-没有 canary 保护，nx 保护开启排除 shellcode 可能性，FULL RELEO 为地址随机化。
-观察主函数，先设定了一个闹铃，到时间就会强制退出程序，解除闹铃的方法在上一篇博客中提到过了，
-这道题中闹铃函数依然对我们解题起不到什么干扰作用。
-
-主函数的思路大概是：生成一个随机数，把这个随机数作为参数传进 sub_804871F ()...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
-      </span>
-    </div>
-    <a href="/2021/09/03/babyrop/" itemprop="url" title="标准32位程序ROP流程和c语言转义字符" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -654,7 +645,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">11</span>
+        <span class="count">14</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -745,57 +736,16 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
+    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
+    <span><a href="/2022/04/19/%E9%AB%98%E7%89%88%E6%9C%AC%E5%A0%86%E6%8A%80%E5%B7%A7/" title="未命名">未命名</a></span>
   </li>
 
       
@@ -815,7 +765,57 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/04/06/wustctf2020_babyfmt/" title="wustctf2020_babyfmt">wustctf2020_babyfmt</a></span>
   </li>
 
       
@@ -826,16 +826,6 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 </div>
 
     <span><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" title="Tcachebin 总结">Tcachebin 总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
   </li>
 
   </ul>
