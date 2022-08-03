@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4baakhj20zk0m8h5q.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclffsa1cj20zk0m811l.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
         </ul>
       </div>
     </header>
@@ -121,7 +121,58 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" itemprop="url" title="DASCTF7月赋能赛pwn wp"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></a>
+    <a href="/2022/08/03/2022qwb/" itemprop="url" title="2022强网杯pwn部分wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-08-03 17:38:41">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-08-03T17:38:41+08:00">2022-08-03</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>35k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>31 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/08/03/2022qwb/" itemprop="url" title="2022强网杯pwn部分wp">2022强网杯pwn部分wp</a></h3>
+    <div class="excerpt">
+        # Pwn
+# challenge UserManager
+菜单题 musl
+二叉树
+add 里面有 uaf。
+连续两次 id 一样。
+用的 calloc，得想办法 leak。
+堆风水先把 avail chunk 给消耗完。再 free user。 再分配的时候就可以完成用 user 占位 name。然后用 name 来 leak libc 和 elf base
+再用 name 反过来占位 user，写 secret 的地址就可以 leak 出 secret。
+dequeue 打类似 unlink 攻击，打 io file，fsop。堆风水，注意到 parent...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
+      </span>
+    </div>
+    <a href="/2022/08/03/2022qwb/" itemprop="url" title="2022强网杯pwn部分wp" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" itemprop="url" title="DASCTF7月赋能赛pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclip4jbpj20zk0m87cv.jpg"></a>
   </div>
   <div class="info">
     
@@ -170,7 +221,7 @@ exp:
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" itemprop="url" title="DSCTF pwn 部分wp"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></a>
+    <a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" itemprop="url" title="DSCTF pwn 部分wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -224,7 +275,7 @@ add 函数和 edit 函数功能相似。add 函数 malloc 指定大小 0x108。
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" itemprop="url" title="2022蓝帽pwn wp"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></a>
+    <a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" itemprop="url" title="2022蓝帽pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicljgocqbj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -280,7 +331,7 @@ r8 减去一个很大的偏移，令他小于 codebase，将 r8 赋给...
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/04/06/wustctf2020_babyfmt/" itemprop="url" title="wustctf2020_babyfmt"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></a>
+    <a href="/2022/04/06/wustctf2020_babyfmt/" itemprop="url" title="wustctf2020_babyfmt"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicm07ih54j20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
@@ -327,7 +378,7 @@ r8 减去一个很大的偏移，令他小于 codebase，将 r8 赋给...
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclgi503lj20zk0m8hdt.jpg"></a>
+    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giciszlczyj20zk0m816d.jpg"></a>
   </div>
   <div class="info">
     
@@ -376,7 +427,7 @@ tcache_entry 用来链接空闲的 tcache chunk，其中的 next 指针指向下
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicis3attqj20zk0m8k7l.jpg"></a>
+    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></a>
   </div>
   <div class="info">
     
@@ -423,7 +474,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></a>
+    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></a>
   </div>
   <div class="info">
     
@@ -468,7 +519,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" itemprop="url" title="格式化字符串漏洞进阶"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclx29mstj20zk0m8hdt.jpg"></a>
+    <a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" itemprop="url" title="格式化字符串漏洞进阶"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></a>
   </div>
   <div class="info">
     
@@ -523,7 +574,7 @@ checksec 一下：
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" itemprop="url" title="堆学习-UAF"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></a>
+    <a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" itemprop="url" title="堆学习-UAF"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></a>
   </div>
   <div class="info">
     
@@ -569,56 +620,6 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" itemprop="url" title="堆学习-Chunk Overlapping"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipevarprfj20zk0m8npd.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-10-24 02:00:08">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-10-24T02:00:08+08:00">2021-10-24</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>11k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>10 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" itemprop="url" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></h3>
-    <div class="excerpt">
-        CTF-wiki 真是太好一学习网站了。
-原文链接：https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/chunk-extend-overlapping/#_1
-# Chunk Extend
-# 实现条件
-要实现 chunk extend 需要满足的条件：有堆漏洞，并且该漏洞可以修改 chunk header 里的数据。
-# 实现原理
-原理大概就是：
-①：ptmalloc 通过 chunk header 里面的 prev_size 和 size 来对前后堆块进行定位。
-②：ptmalloc 通过查看下一个堆的 prev_inuse...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" title="学习笔记"><i class="ic i-flag"></i>学习笔记</a>
-      </span>
-    </div>
-    <a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" itemprop="url" title="堆学习-Chunk Overlapping" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -654,7 +655,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">15</span>
+        <span class="count">16</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -745,7 +746,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2022/04/06/wustctf2020_babyfmt/" title="wustctf2020_babyfmt">wustctf2020_babyfmt</a></span>
+    <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
   </li>
 
       
@@ -755,57 +756,7 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
-</div>
-
-    <span><a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" title="堆学习-UAF">堆学习-UAF</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" title="DASCTF7月赋能赛pwn wp">DASCTF7月赋能赛pwn wp</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
+    <span><a href="/2022/08/03/2022qwb/" title="2022强网杯pwn部分wp">2022强网杯pwn部分wp</a></span>
   </li>
 
       
@@ -816,6 +767,16 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 </div>
 
     <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" title="堆学习-UAF">堆学习-UAF</a></span>
   </li>
 
       
@@ -836,6 +797,46 @@ Use After Free 意如其名，是一个内存漏洞，当一个内存块被释�
 </div>
 
     <span><a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" title="2022蓝帽pwn wp">2022蓝帽pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/04/06/wustctf2020_babyfmt/" title="wustctf2020_babyfmt">wustctf2020_babyfmt</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" title="DASCTF7月赋能赛pwn wp">DASCTF7月赋能赛pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
   </li>
 
   </ul>
