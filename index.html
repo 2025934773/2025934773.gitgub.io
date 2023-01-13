@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -121,7 +121,94 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/09/04/%E7%BE%8A%E5%9F%8E%E6%9D%AF/" itemprop="url" title="羊城杯pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></a>
+    <a href="/2022/12/01/hitcon-wtfshell/" itemprop="url" title="未命名"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclx29mstj20zk0m8hdt.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-12-01 15:02:07">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-12-01T15:02:07+08:00">2022-12-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>33k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>30 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/12/01/hitcon-wtfshell/" itemprop="url" title="未命名">未命名</a></h3>
+    <div class="excerpt">
+        # 前言
+和 r3kapig 一起征战 hitcon2022，pwn 手坐大牢，wtfshell 这道题审了三小时源码，只看出来一个 chk_pw 侧信道 + read_pw 未置零，最终可以通过侧信道 leak 出一个 heap 地址，没有看出其余的洞，最终放弃。
+wtfshell1 最终解数为 4， wtfshell2 最终解数为 3。第一题解出来了第二题基本就解出来了。
+感谢 crazyman 第二天来告诉我 wtfshell 的主要漏洞（strtok off by...
+    </div>
+    <a href="/2022/12/01/hitcon-wtfshell/" itemprop="url" title="未命名" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/11/19/kernel2own/" itemprop="url" title="未命名"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-11-19 15:52:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-11-19T15:52:55+08:00">2022-11-19</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>22k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>20 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/11/19/kernel2own/" itemprop="url" title="未命名">未命名</a></h3>
+    <div class="excerpt">
+        # 前言
+Kernel2own
+很久没有更新博客了，看了看自己之前的博客，在刚入门的时候，往往每个问题都想的很深入，博客也写得很认真，每个细节问题都想明白了并且呈现在了博客中。
+后来可能算是在 CTF 中取得了一些成果，但是对应的人也浮躁起来，博客也只会放一些 wp，wp 也写得不是很详细。
+喜欢学长的一句话：人若无名，方能潜心练剑。
+鸽了非常非常久的 kernel 学习，鸽了大概半年。
+先对 CTF 里的 kernel 进行入门和温习吧。
+kernel 基础知识以及基础保护就不在这篇文章里涉及了，直接开始小小做题家。😮
+# kernel UAF
+# 基础知识点
+​	UAF，即为 Use...
+    </div>
+    <a href="/2022/11/19/kernel2own/" itemprop="url" title="未命名" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/09/04/%E7%BE%8A%E5%9F%8E%E6%9D%AF/" itemprop="url" title="羊城杯pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></a>
   </div>
   <div class="info">
     
@@ -174,7 +261,7 @@ HTTP_SERVER1_token 是系统随机生成的，得写对。token 记得用 \x00 �
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/08/17/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/" itemprop="url" title="2022巅峰极客pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicivghyooj20zk0m8dir.jpg"></a>
+    <a href="/2022/08/17/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/" itemprop="url" title="2022巅峰极客pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipewf5l51j20zk0m8b29.jpg"></a>
   </div>
   <div class="info">
     
@@ -229,7 +316,7 @@ bargain：可以用来控制 fd。并且类型为 int，比较类型也是有符
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/08/03/2022qwb/" itemprop="url" title="2022强网杯pwn部分wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicm07ih54j20zk0m84qp.jpg"></a>
+    <a href="/2022/08/03/2022qwb/" itemprop="url" title="2022强网杯pwn部分wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></a>
   </div>
   <div class="info">
     
@@ -280,7 +367,7 @@ dequeue 打类似 unlink 攻击，打 io file，fsop。堆风水，注意到 par
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" itemprop="url" title="DASCTF7月赋能赛pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciukx8a7j20zk0m8aio.jpg"></a>
+    <a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" itemprop="url" title="DASCTF7月赋能赛pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></a>
   </div>
   <div class="info">
     
@@ -329,7 +416,7 @@ exp:
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" itemprop="url" title="DSCTF pwn 部分wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipevarprfj20zk0m8npd.jpg"></a>
+    <a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" itemprop="url" title="DSCTF pwn 部分wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></a>
   </div>
   <div class="info">
     
@@ -383,7 +470,7 @@ add 函数和 edit 函数功能相似。add 函数 malloc 指定大小 0x108。
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" itemprop="url" title="2022蓝帽pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclip4jbpj20zk0m87cv.jpg"></a>
+    <a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" itemprop="url" title="2022蓝帽pwn wp"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclxp31goj20zk0m8qv5.jpg"></a>
   </div>
   <div class="info">
     
@@ -439,7 +526,7 @@ r8 减去一个很大的偏移，令他小于 codebase，将 r8 赋给...
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/04/06/wustctf2020_babyfmt/" itemprop="url" title="wustctf2020_babyfmt"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicit31ffoj20zk0m8naf.jpg"></a>
+    <a href="/2022/04/06/wustctf2020_babyfmt/" itemprop="url" title="wustctf2020_babyfmt"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipetlbztpj20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
@@ -486,7 +573,7 @@ r8 减去一个很大的偏移，令他小于 codebase，将 r8 赋给...
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></a>
+    <a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" itemprop="url" title="Tcachebin 总结"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclwrdwyaj20zk0m8are.jpg"></a>
   </div>
   <div class="info">
     
@@ -532,98 +619,6 @@ tcache_entry 用来链接空闲的 tcache chunk，其中的 next 指针指向下
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciundwu5j20zk0m8n9e.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-02-02 12:59:53">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-02-02T12:59:53+08:00">2022-02-02</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>6.2k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>6 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></h3>
-    <div class="excerpt">
-        # 前言
-当堆题保护全开的时候。PIE 保护几乎使得 unlink 失效（除非能够计算出程序基址），FULL RELEO 也使得函数 GOT 表不可修改。此时常覆盖各种函数的 hook 为 one_gadget 来 getshell。
-我常考虑的顺序是：
-free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
-若有沙盒限制，则考虑 setcontext
-当 free_hook 不可打时（例如 Fastbin Attack 时 free_hook 前不能构造字节错位），我们往往就会打 malloc_hook...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
-      </span>
-    </div>
-    <a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" itemprop="url" title="利用realloc调整栈使one_gadget生效" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclgi503lj20zk0m8hdt.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-11-29 00:36:00">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-11-29T00:36:00+08:00">2021-11-29</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>12k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>10 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></h3>
-    <div class="excerpt">
-        前段时间的极客大挑战 2021 和 2021 年的 SCU 新生赛，最后一道题都没有做出来，作为一枚大二学长确实应该反省一下自己了。太菜了呜呜呜。极客大挑战因为打太久了，题目都快忘记了，就不写 wp 了。
-# ret2text
-简单的栈溢出，pwn 里的 hello world。
-12345678from pwn import *r = process(&amp;quot;/mnt/hgfs/ubuntu/stackoverflow&amp;quot;)elf = ELF(&amp;quot;/mnt/hgfs/ubuntu/stackoverflow&amp;quot;)payload =...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/CTF/" itemprop="url" title="CTF"><i class="ic i-flag"></i>CTF</a>
-      </span>
-    </div>
-    <a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" itemprop="url" title="SCU新生赛2021 pwn wp" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -659,7 +654,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">18</span>
+        <span class="count">20</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -747,50 +742,28 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
+    <span><a href="/2022/12/01/hitcon-wtfshell/" title="未命名">未命名</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2022/08/17/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/" title="2022巅峰极客pwn wp">2022巅峰极客pwn wp</a></span>
+    <span><a href="/2022/11/19/kernel2own/" title="未命名">未命名</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
 </div>
 
-    <span><a href="/2022/08/03/2022qwb/" title="2022强网杯pwn部分wp">2022强网杯pwn部分wp</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
   </li>
 
       
@@ -810,7 +783,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" title="Tcachebin 总结">Tcachebin 总结</a></span>
+    <span><a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" title="DSCTF pwn 部分wp">DSCTF pwn 部分wp</a></span>
   </li>
 
       
@@ -830,7 +803,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" title="2022蓝帽pwn wp">2022蓝帽pwn wp</a></span>
+    <span><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></span>
   </li>
 
       
@@ -840,7 +813,27 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
 <a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
+    <span><a href="/2021/09/03/babyrop/" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" title="堆学习-UAF">堆学习-UAF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/08/20/string/" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></span>
   </li>
 
   </ul>
@@ -855,7 +848,7 @@ free_hook -&amp;gt; malloc_hook -&amp;gt; IO_FILE -&amp;gt; exit_hook
   <div class="copyright">
     
     &copy; 2010 – 
-    <span itemprop="copyrightYear">2022</span>
+    <span itemprop="copyrightYear">2023</span>
     <span class="with-love">
       <i class="ic i-sakura rotate"></i>
     </span>
