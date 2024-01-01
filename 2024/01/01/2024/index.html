@@ -1,0 +1,611 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="清風微醺" href="https://www.wdqjxtmph.top/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="清風微醺" href="https://www.wdqjxtmph.top/atom.xml" />
+<link rel="alternate" type="application/json" title="清風微醺" href="https://www.wdqjxtmph.top/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="pwn技巧总结" />
+
+
+<link rel="canonical" href="https://www.wdqjxtmph.top/2024/01/01/2024/">
+
+
+
+  <title>
+_environ与ssp攻击 - 随记 |
+Loτυs = 清風微醺 = 凌恒</title>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">_environ与ssp攻击
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-01-01 11:56:05">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-01-01T11:56:05+08:00">2024-01-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>4.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Loτυs</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://pic.imgdb.cn/item/6592d773c458853aef5302ed.jpg">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E9%9A%8F%E8%AE%B0/" itemprop="item" rel="index" title="分类于 随记"><span itemprop="name">随记</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://www.wdqjxtmph.top/2024/01/01/2024/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Loτυs">
+    <meta itemprop="description" content="凌恒, 凌恒山其若陋兮、">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="清風微醺">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="前言"><a class="markdownIt-Anchor" href="#前言">#</a> 前言</h1>
+<p>人生天地之间，若白驹过隙，忽然而已。</p>
+<p>轮到总结我的 2023 时，我第一时间想到这一句诗。</p>
+<p>恍然间似乎还在年初，恍然间就到了年末。</p>
+<h1 id="ctf"><a class="markdownIt-Anchor" href="#ctf">#</a> CTF</h1>
+<p>2023 是我打 CTF 的第一个年头（不算我摸爬滚打学习的一年），或许以后还有很多年。</p>
+<h2 id="强网拟态"><a class="markdownIt-Anchor" href="#强网拟态">#</a> 强网拟态</h2>
+<p>今年 CTF 的开篇应该是和 SU 去南京打强网拟态决赛，前一天还打了一个成信大的安洵杯决赛，第一次打 awd，侥幸拿了一个冠军。</p>
+<p>不尽人意的是刚飞到南京就首阳了，战斗力直接变成 0，在酒店里休息着看着 SU 大爹们带着我拿下决赛第三。</p>
+<p>谢谢塞宁一别姐姐在那个新冠还被人害怕的年代，亲自送新冠测试剂和一些药到酒店房间给我。🥰🥰</p>
+<h2 id="西湖论剑"><a class="markdownIt-Anchor" href="#西湖论剑">#</a> 西湖论剑</h2>
+<p>然后飞到杭州去参加西湖论剑。在淡季参观了西湖和林隐寺。淡季旅游真的是一个非常不错的选择（虽然我是去打比赛的）。逛了一会杭州之后就只有一个念头，这个城市很舒服。当时是三月份，有兴趣的朋友往后看在我说到学业的时候会提到，当时的我一无所有，但是我在出租车上，路过浙大的时候，我告诉我队友，那是我以后要去的学校。</p>
+<p>不得不说杭州还是很有钱的，西湖论剑给的周边和酒店配置甚至比强网杯都要好一点。比赛过程很坐牢，IOT awd 不会打，但是第一天靠拔线拿到 awd 第 14。(👨‍🦳真是会随机应变），然后第一天结束跟几个 pwner 面基（winmt，gxh，7r1pl3J，还有 syc 的其他几位师傅）分享我的战略之后，第二天他们也都拔线了，但是第二天题目很难，没有几个人打，宕机扣的分数往往不如不宕机划算。因此我就没有选择宕机，但是几位师傅的队伍都学我拔线了。于是第二天我又赢麻了 /doge（赛后就被朋友揍了，说不该听我的🤷‍♂️）。</p>
+<h2 id="强网人工智能"><a class="markdownIt-Anchor" href="#强网人工智能">#</a> 强网人工智能</h2>
+<p>然后飞郑州打强网人工智能赛道，和隔壁兄弟组 <code>Timekeeper</code>  一起垫底！兄弟就是要整整齐齐。</p>
+<h2 id="ciscn半决赛"><a class="markdownIt-Anchor" href="#ciscn半决赛">#</a> ciscn 半决赛</h2>
+<p>去云南参加了，第一次打 awdp，成功成为全场唯一一个 ak pwn 的选手。😎😎</p>
+<p>ak 了之后已经想好如何上去冠军演讲了，但是隔壁电科 web 爷太厉害了。💔</p>
+<p>逛了昆明的龙门石窟？应该叫这个名字吧，感觉昆明没什么好玩的。</p>
+<h2 id="greyctf2023"><a class="markdownIt-Anchor" href="#greyctf2023">#</a> GreyCTF2023</h2>
+<p>空白爷给的机会，让我第一次出国，去新加坡 NUS 里代表中国打决赛，好像是两天都 ak 了 pwn，基本上都一血。不过他们的 kernel 很 baby👶。</p>
+<p>最后拿下冠军🥇，主办方最后说明年还会继续出 kernel，希望我还能去。和主办方一起合影，晚上晚宴大家一起唱歌，我唱了一首小苹果🍎，给外国人狠狠来了一手文化输出。</p>
+<p>不得不说新加坡还是非常美的，和朋友一起逛了 Sentosa，Clifford Pier，鱼尾狮公园，看了他们的 city holl，去他们的酒吧区看了看。新加坡风景和治安，以及公民素质非常非常好。(就是汇率太不好了，物价太贵了)。他们那边的环境治理也非常好，走在路上旁边小树林里都能看到🙊等野生动物。</p>
+<h2 id="ciscn决赛"><a class="markdownIt-Anchor" href="#ciscn决赛">#</a> ciscn 决赛</h2>
+<p>压力最大的一集，不过还好有惊无险拿下国一。</p>
+<p>小插曲就是出去觅食下暴雨，淋着雨骑回酒店。骑着骑着发现哥们跟队友走散了，然后路痴的我就往反方向一直骑，多享受了 20min 大自然的馈赠。雨大的差点我就能当场把衣服脱掉🏊‍♂️。</p>
+<h2 id="祥云杯决赛"><a class="markdownIt-Anchor" href="#祥云杯决赛">#</a> 祥云杯决赛</h2>
+<p>** 比赛，自费飞过去，线下断网全是 ollvm 混淆，给个 glibc 老版本还不给 ld（前朝的⚔️还要斩本朝的官？）</p>
+<p>荣获 100% 输出打到决赛第十一。</p>
+<p>住的垃圾酒店🏩这辈子都不想住了，三人间一晚上 100，可以脑补一下环境多差。</p>
+<p>打完之后就拉着队友去电竞酒店嗨了。</p>
+<h2 id="四川省省赛"><a class="markdownIt-Anchor" href="#四川省省赛">#</a> 四川省省赛</h2>
+<p>本来不想打的，因为玄武实习已经催了很久了。不过由于和某个参赛选手有点个人恩怨，所以打算去暴打他一下 (bushi。</p>
+<p>一天 ctf 一天 awd 被打成两天 awd（只有两个 web 手和我一个 pwn）。</p>
+<p>CTF 全场唯一 ak pwn，不过静态积分 1 解 pwn 100 分，30 解 re 300 分。👊</p>
+<p>所以第一天 CTF 第八，打完都不想打了。想了想跟队友说明天还是去吧，看🤠明天 awd 干碎他们。</p>
+<p>awd 一个人😡怒拿 20w 分，只做 pwn 都能断崖式第一。</p>
+<p>最后综合拿了个🥈。</p>
+<p>打的比赛太多了，相册里有记录的就这些了，还有些比赛或许不记得了。只能说不够强，继续沉淀。</p>
+<h1 id="学业"><a class="markdownIt-Anchor" href="#学业">#</a> 学业</h1>
+<p>今年的学业焦虑尤其严重，我的相册里有一个文件夹专门记录着我所有关于学业焦虑的截图。</p>
+<p>其实一直都想直接工作的，因为感觉 互联网 / 网安这一块并不吃学历。但是由于家里一直很想让我继续读书，加上大家族里大家普遍把我当成教育孩子的榜样，同时也普遍觉得不继续读研就很失败（。因此在年初打算工作 保研两手抓。</p>
+<p>由于我是低 rk 选手（将近 40%），因此想要冲稍微好一点的学校必须拿到保研资格和提前套磁。</p>
+<p>因此我今年二月份便开始咨询各个学长，首先联系了浙大的三位老师，全部没有回音。接下来找了人帮我内推了一下清华网研院的 xx 老师，但是听说 xx 老师一年能收到几百份简历，再加上三月份我几乎没有任何成果，也合理的石沉大海。</p>
+<p>当时是很心灰意冷的。到了五月找学长内推到复旦大学系统安全实验室 xx 老师那里，是第一位愿意联系我并且和我详细聊天的老师。剩下就是丢了一些类似于考核的工作，让我对 <code>syzbot</code>  生成的内核 crash 报告分析成因，并且尝试是否能够写出 <code>exp</code> 。当时我一边实训，一边抽大把时间分析。很可惜 xx 老师那段时间过于忙碌，没能及时回复我的信息，导致我以为是我做的不好。（事实上 xx 老师后面又跟我联系，并且由于我说出我低 rk 的原因，xx 老师积极与学院沟通，想要捞我，但是由于我是傻逼，fdu 的预推免 ddl 记错了，没有填，当然我去 fdu 的意愿也不是很强烈，所以也不算很可惜）。</p>
+<p>到这里 你或许和我有着一样的想法，是不是就止步于此了呢。</p>
+<p>我不知道未来会怎么样，不知道我会不会什么都得不到，未来是一片迷茫和灰暗。</p>
+<p>无数个夜晚我深夜在宿舍楼下来回踱步，无数个夜晚我和不同的人咨询，无数个夜晚我和好朋友们倾诉。</p>
+<p>无数次念想告诉我，不要放弃。</p>
+<p>每天早上十点起床，去图书馆待到晚上十点，除了午饭和晚饭去食堂解决，没有任何其他娱乐活动。沉淀的过程就是痛苦的，看不到希望，只能不停让自己变强，看不到任何回音。很喜欢高中时期我经常拿来写作文里面的一句：有志者事竞成，破釜沉舟，百二秦关终属楚；苦心人天不负，卧薪尝胆，三千越甲可吞吴。其实我一直很喜欢中华文化里面的文字魅力和文字力量，当然现在没有太多的精力去汲取里面的内涵了，但是我还是会用他们当成我人生的信念和力量。</p>
+<p>事情的转机在找朱学长内推了他在 zju 的导师，这位老师是最开始我投的那三位 zju 老师之一，当时信件石沉大海，但是后面他表示愿意和我聊一聊。刚好老师那边有关于内核安全的实验需要做，刚好我又会一点点内核利用。然后就遇到了 jim 学姐。我做完了一篇论文所有的内核实验，以及帮另外一篇论文做了一点实验。然后由于学姐在 ucr 实习，因此他的老师也很想让我过去。美国那位老师很强，那边也非常多人在搞内核安全，并且发表的四大顶会数量非常多，是一个非常非常不错的选择，并且老师给我打了很多次电话，说可以提供全额奖学金博士 / 全额奖学金硕士名额，还开出了其他一些条件。但是由于我出国意愿非常不强烈，因此最后还是婉拒了。</p>
+<p>最后就是顺理成章参加 zju 夏令营，最后预推免，侥幸拿下专硕面试组第一名。</p>
+<p>非常感谢我现在的导师，愿意在我没有成果的时候，甚至保研名额能否拿到都不确定的时候，选择相信我的能力，并且还主动带我逛西湖，以及帮助了我很多。</p>
+<p>知遇之恩是最难得的，因此后续我也没有去投 北大软微，复旦系统安全实验室（忘了），选择 all in zju，要是失败了就考个托福选择去 ucr 读五年变成 lotus 博。</p>
+<p>前面说到我有书读需要满足两个条件：①套磁②保研名额。</p>
+<p>由于去年 ciscn 没有打，加上强网杯国三不够我保研，因此我需要 2023 的 ciscn 保二争一。这件事情我从 2022 年年底就开始规划，早早的和各个我的 ctfer 队友讨论了队伍配置，以及时不时 push 他们学习，一直到比赛前我都处于一个非常焦虑的状态。</p>
+<p>引用 showmaker 的话来说就是：我必须考虑这是不是我此生仅有的机会。</p>
+<p>幸好最后拿下了国赛一等奖🏆🏆，成功保研。给所有的努力画上了一个句号。（有点马后炮的是，没有想着套一下 thu 的其他老师，top2 祖坟冒青烟的机会还是没抓住，最后是只投了 zju 一个学校，不过相较于北京上海这些城市，我还是远远喜欢杭州一些）。</p>
+<p>非常感谢 minhal 学长，jim 学姐，朱学长，明浩学长，ziyue 学长 etc…</p>
+<h1 id="实习"><a class="markdownIt-Anchor" href="#实习">#</a> 实习</h1>
+<p>由于重心主要放在学业上，因此实习就投了三家公司：玄武，奇安信，美团。</p>
+<p>奇安信投成 web 岗了（web 岗名字怎么和二进制那么像🤦‍♂️），简历挂。</p>
+<p>美团和玄武都过了，最后选择去玄武。目前还在这边日常实习，最近主要在速成学习安卓 app。</p>
+<p>好像没什么想说的，吃的很好，大家对我很好，工作很坐牢（re 向）。</p>
+<p>北京物价太高，过的很不舒服，很没有人间烟火气。</p>
+<p>租的房子离公司 4km，每天来回 8km🚲🚲。</p>
+<p>北京的自行车道老是被各大汽车占满，搞得我每次骑车在夹缝中生存，还有各种骑手逆行想创死我。还好哥们八岁开始习武🧘‍♀️，熟悉练习🚲🚲十余年载，技艺高超，数次都能化险为夷，因此每天都能完成下班之后的任务：活着骑车到家。</p>
+<h1 id="生活"><a class="markdownIt-Anchor" href="#生活">#</a> 生活</h1>
+<h2 id="吉他"><a class="markdownIt-Anchor" href="#吉他">#</a> 吉他</h2>
+<p>年初花光当时的积蓄买了一把雅马哈全单，音色确实很不错，今年终于能断断续续弹 <code>unravel</code>  和其他一些指弹曲。</p>
+<p>不得不说我还是很喜欢民谣这个小方向，有一种把故事娓娓道来的舒适感。</p>
+<p>说起来已经三个月没有碰过我的吉他了，想它。</p>
+<h2 id="健身"><a class="markdownIt-Anchor" href="#健身">#</a> 健身</h2>
+<p>也是从今年年初下定决心开始接触健身，当时处在人生一个小低谷，想给自己一个改变自己的机会，或许又是因为大家都觉得我不会坚持下来，因此我坚持下来了。</p>
+<p>向来对自己训练比较狠，刚开始的时候经常练完就去厕所上吐下泻，健身的时候脑海里最多的念头就是：“为什么这么痛苦，要不放弃了吧”，接下来就是：“我能，我可以，我一定行”。因为有些项目太痛苦（不知道是不是阳了之后心率跟不上），所以一般会给自己心理暗示，例如一组 20 个，做到第四个我会告诉自己做到 1 / 5，做到第十个我会告诉自己 1 / 2 了，让自己不断坚持下去。</p>
+<p>中途因为意外受了一次伤，今年的健身也是断断续续。结果是从一个细狗变成了不那么细狗的细狗。</p>
+<p>今年健身很随意，饮食作息都没有控制，所以体重一直上不去。2024 试着调一下作息，尝试开始吃早饭。（没怎么吃过早饭）</p>
+<h2 id="孤独"><a class="markdownIt-Anchor" href="#孤独">#</a> 孤独</h2>
+<p>今年✈️一共坐了将近三十次，奔波在各个不同的城市，但都没有静下来看看不同城市的风景，以及风土人情。</p>
+<p>为什么取这一个标题呢，今年实现的最大的一个成长就是逐渐习惯孤独，有了平常心，不那么小孩子气，各方面都变得成熟了一点。</p>
+<p>飞南京打强网拟态的时候，一个人在酒店里阳了，拖着病怏怏的身体打完比赛后又一个人飞回来。</p>
+<p>一个人飞杭州参加 zju 一个月夏令营。</p>
+<p>飞杭州参加预推免，不幸又阳了，拖着 40 度的身体一个人答辩完后飞回家。</p>
+<p>飞新加坡也感受到孤独，语言不通，货币问题，人生地不熟等障碍让我在新加坡那几天都挺不知所措。</p>
+<p>今年在北京也不幸感染甲流，一个人在家里躺尸，连续高烧两天 41 度，起来烧水都没力气。每次阳其他症状都能忍受，唯独腰痛实在太难受。打比赛留下来的腰肌劳损每次阳了之后就会严重加剧。</p>
+<p>在北京实习到现在，也习惯了一个人生活，也看淡了一些东西的得失。</p>
+<p>最后非常谢谢这一年一路上陪伴我的朋友们，我的亲人，还有我的宝子 <code>77</code> 😘</p>
+<p>2024 是一个新的起点，希望今年我还能不停迈步。</p>
+<p><strong>故事很多，日子还长，充满希望。</strong></p>
+
+      <div class="tags">
+          <a href="/tags/pwn%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/" rel="tag"><i class="ic i-tag"></i> pwn技巧总结</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-01-01 23:17:23" itemprop="dateModified" datetime="2024-01-01T23:17:23+08:00">2024-01-01</time>
+  </span>
+  <span id="2024/01/01/2024/" class="item leancloud_visitors" data-flag-title="_environ与ssp攻击" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Loτυs 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Loτυs 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Loτυs <i class="ic i-at"><em>@</em></i>清風微醺
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wdqjxtmph.top/2024/01/01/2024/" title="_environ与ssp攻击">https://www.wdqjxtmph.top/2024/01/01/2024/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/03/31/%E4%BB%8Eciscn2022%E4%B8%80%E9%81%93%E4%B8%80%E8%A7%A3%E9%A2%98%E6%B5%85%E6%9E%90msg_msg%E7%BB%93%E6%9E%84%E4%BD%93/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;6430ee4e0d2dde5777fefb15.webp" title="从ciscn2022一道一解题浅析msg_msg结构体">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> CTF赛题复现</span>
+  <h3>从ciscn2022一道一解题浅析msg_msg结构体</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ctf"><span class="toc-number">2.</span> <span class="toc-text"> CTF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81"><span class="toc-number">2.1.</span> <span class="toc-text"> 强网拟态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91"><span class="toc-number">2.2.</span> <span class="toc-text"> 西湖论剑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E7%BD%91%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD"><span class="toc-number">2.3.</span> <span class="toc-text"> 强网人工智能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ciscn%E5%8D%8A%E5%86%B3%E8%B5%9B"><span class="toc-number">2.4.</span> <span class="toc-text"> ciscn 半决赛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#greyctf2023"><span class="toc-number">2.5.</span> <span class="toc-text"> GreyCTF2023</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ciscn%E5%86%B3%E8%B5%9B"><span class="toc-number">2.6.</span> <span class="toc-text"> ciscn 决赛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A5%A5%E4%BA%91%E6%9D%AF%E5%86%B3%E8%B5%9B"><span class="toc-number">2.7.</span> <span class="toc-text"> 祥云杯决赛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E5%B7%9D%E7%9C%81%E7%9C%81%E8%B5%9B"><span class="toc-number">2.8.</span> <span class="toc-text"> 四川省省赛</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%A6%E4%B8%9A"><span class="toc-number">3.</span> <span class="toc-text"> 学业</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E4%B9%A0"><span class="toc-number">4.</span> <span class="toc-text"> 实习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E6%B4%BB"><span class="toc-number">5.</span> <span class="toc-text"> 生活</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%89%E4%BB%96"><span class="toc-number">5.1.</span> <span class="toc-text"> 吉他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%A5%E8%BA%AB"><span class="toc-number">5.2.</span> <span class="toc-text"> 健身</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A4%E7%8B%AC"><span class="toc-number">5.3.</span> <span class="toc-text"> 孤独</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/2024/01/01/2024/" rel="bookmark" title="_environ与ssp攻击">_environ与ssp攻击</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Loτυs"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Loτυs</p>
+  <div class="description" itemprop="description">凌恒山其若陋兮、</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">23</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">4</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">6</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="/default/" rel="section"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/03/13/Tcache%20bin%E6%80%BB%E7%BB%93/" title="Tcachebin 总结">Tcachebin 总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/08/03/2022qwb/" title="2022强网杯pwn部分wp">2022强网杯pwn部分wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/07/24/DASCTF7%E6%9C%88%E8%B5%8B%E8%83%BD%E8%B5%9Bpwn%20wp/" title="DASCTF7月赋能赛pwn wp">DASCTF7月赋能赛pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/09/64%E4%BD%8D%E6%A0%87%E5%87%86ROP%E4%B8%8E%E5%A0%86%E6%A0%88%E5%B9%B3%E8%A1%A1/" title="标准64位程序ROP流程和堆栈平衡">标准64位程序ROP流程和堆栈平衡</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/09/04/%E7%BE%8A%E5%9F%8E%E6%9D%AF/" title="羊城杯pwn wp">羊城杯pwn wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2022/07/15/DSCTF%E9%83%A8%E5%88%86wp/" title="DSCTF pwn 部分wp">DSCTF pwn 部分wp</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/2021/09/25/%E7%94%B5%E7%A7%91%E6%96%B0%E7%94%9F%E8%B5%9B/" title="电科新生赛">电科新生赛</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/24/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-chunk%20overlapping/" title="堆学习-Chunk Overlapping">堆学习-Chunk Overlapping</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="分类于 学习笔记">学习笔记</a>
+</div>
+
+    <span><a href="/2021/10/30/%E5%A0%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-UAF/" title="堆学习-UAF">堆学习-UAF</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/" title="分类于 CTF赛题复现">CTF赛题复现</a>
+</div>
+
+    <span><a href="/2022/12/01/hitcon-wtfshell/" title="hitcon2022-wtfshell">hitcon2022-wtfshell</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Loτυs @ Loτυs</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2024/01/01/2024/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
